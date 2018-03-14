@@ -1,0 +1,135 @@
+/* http://meyerweb.com/eric/tools/css/reset/
+   v2.0 | 20110126
+   License: none (public domain)
+*/
+html, body, div, span, applet, object, iframe,
+h1, h2, h3, h4, h5, h6, p, blockquote, pre,
+a, abbr, acronym, address, big, cite, code,
+del, dfn, em, img, ins, kbd, q, s, samp,
+small, strike, strong, sub, sup, tt, var,
+b, u, i, center,
+dl, dt, dd, ol, ul, li,
+fieldset, form, label, legend,
+table, caption, tbody, tfoot, thead, tr, th, td,
+article, aside, canvas, details, embed,
+figure, figcaption, footer, header, hgroup,
+menu, nav, output, ruby, section, summary,
+time, mark, audio, video {
+  margin: 0;
+  padding: 0;
+  border: 0;
+  font-size: 100%;
+  font: inherit;
+  vertical-align: baseline; }
+
+/* HTML5 display-role reset for older browsers */
+article, aside, details, figcaption, figure,
+footer, header, hgroup, menu, nav, section {
+  display: block; }
+
+body {
+  line-height: 1; }
+
+ol, ul {
+  list-style: none; }
+
+blockquote, q {
+  quotes: none; }
+
+blockquote:before, blockquote:after,
+q:before, q:after {
+  content: '';
+  content: none; }
+
+table {
+  border-collapse: collapse;
+  border-spacing: 0; }
+
+/******************/
+/* General styles */
+/******************/
+body {
+  font-size: 1em;
+  font-family: sans-serif;
+  background-color: #e6e6e9; }
+
+h1 {
+  font-size: 2em; }
+
+h2 {
+  font-size: 1.5em; }
+
+h3 {
+  font-size: 1.25em; }
+
+h4 {
+  font-size: 1.1em; }
+
+/**********/
+/* Header */
+/**********/
+nav {
+  background-color: grey; }
+  nav ul {
+    list-style-type: none;
+    display: flex; }
+  nav img {
+    width: 2em; }
+  nav li {
+    align-self: center; }
+  nav li:nth-child(1) {
+    flex-grow: 1;
+    margin: 0.5em; }
+    nav li:nth-child(1) img {
+      width: 2em; }
+  nav li:nth-child(2) {
+    flex-grow: 1; }
+  nav li:nth-child(3) img {
+    width: 4em; }
+
+/********/
+/* Main */
+/********/
+main {
+  margin: 0.75em; }
+
+article {
+  background-color: #FFF;
+  padding: 1em;
+  border-radius: 1em; }
+  article div.nameAndAvatar {
+    display: flex;
+    flex-direction: row-reverse;
+    justify-content: flex-end;
+    align-items: center;
+    margin-bottom: 1em; }
+    article div.nameAndAvatar img {
+      border-radius: 50%;
+      width: 8em;
+      height: 8em; }
+    article div.nameAndAvatar h2 {
+      margin: 0 1em; }
+  article h2 {
+    margin: 1em 0 0.5em 0; }
+  article div.movieGrid {
+    display: grid;
+    grid-template-columns: repeat(2, auto);
+    grid-column-gap: 1em; }
+    article div.movieGrid img {
+      width: 100%; }
+    article div.movieGrid img:nth-child(odd) {
+      grid-column: 1 / 1; }
+    article div.movieGrid img:nth-child(even) {
+      grid-column: 2 / 2; }
+  article div.likeDislikeButtons {
+    display: grid;
+    grid-template-columns: repeat(2, auto);
+    grid-column-gap: 1em; }
+    article div.likeDislikeButtons img {
+      width: 100%; }
+    article div.likeDislikeButtons img:nth-child(odd) {
+      grid-column: 1 / 1; }
+    article div.likeDislikeButtons img:nth-child(even) {
+      grid-column: 2 / 2; }
+
+/*# sourceMappingURL=main.css.map */
