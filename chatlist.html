@@ -1,12 +1,52 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <meta http-equiv="X-UA-Compatible" content="ie=edge">
-  <title>Document</title>
+  <link rel="stylesheet" type="text/css" href="css/main.css">
+  <title>Chats - WatchTogether</title>
 </head>
-<body>
 
+<body>
+  <nav>
+    <ul>
+      <li><a href="index.html"><img src="images/back.png" alt="Chatlist icon"></a></li>
+      <li><h2>Chats</h2></li>
+      <li><button id="menuBtn"><img src="images/menu.png" alt="Menu"></button></li>
+    </ul>
+    <div id="hamburgerMenu">
+      <ul>
+        <li>
+          <h3>Menu</h3> <button id="closeMenu"><img src="images/close.png" alt="Close menu"></button></li>
+          <li><a href="index.html">Home</a></li>
+          <li><a href="chatlist.html">Chats</a></li>
+          <li><a href="profile.html">Profile</a></li>
+          <li><a href="settings.html">Settings</a></li>
+      </ul>
+    </div>
+  </nav>
+
+  <main>
+    <article class="chat">
+      <img src="images/megan.jpg" alt="">
+      <div class="chatText">
+        <h2>Megan</h2>
+        <p>Typing...</p>
+      </div>
+    </article>
+
+    <article class="chat">
+      <img src="images/julia.jpg" alt="">
+      <div class="chatText">
+        <h2>Megan</h2>
+        <p>Yeah, I really liked that one too!</p>
+      </div>
+    </article>
+  </main>
+
+  <script src="js/script.js"></script>
 </body>
+
 </html>

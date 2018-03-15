@@ -2,10 +2,6 @@
 /* Main */
 /********/
 
-img {
-  // width: 8em;
-}
-
 main {
   margin: 0.75em;
   margin-top: 4em;
@@ -13,8 +9,10 @@ main {
 
 article {
   background-color: $white;
+  @extend %primary-shadow;
   padding: 1em;
   border-radius: 1em;
+  margin-bottom: 1em;
 
   div.nameAndAvatar {
     display: flex;
@@ -45,5 +43,68 @@ article {
   div.likeDislikeButtons {
     @include mobile-grid;
     margin-top: 1em;
+
+    button {
+      justify-self: center;
+      width: 6em;
+    }
+  }
+}
+
+article.chat {
+  display: flex;
+  flex-direction: row;
+  @extend %primary-shadow;
+
+  img {
+    width: 4em;
+    height: 4em;
+    border-radius: 50%;
+  }
+
+  div.chatText {
+    display: flex;
+    flex-direction: column;
+
+    margin: -1em 0 0 1em;
+  }
+}
+
+section {
+  display: flex;
+  flex-direction: column;
+
+  h3 {
+    margin: 1em 0;
+  }
+
+  a.btn {
+    background-color: $primary-color;
+    @extend %primary-shadow;
+    border-radius: 1em;
+    margin: 1em;
+    padding: 1em;
+    text-align: center;
+  }
+
+
+  form#login {
+    fieldset {
+      display: flex;
+      flex-direction: column;
+
+      input {
+        margin: 0.5em 0 1.5em 0;
+        width: 100%;
+        font-size: 1em;
+      }
+
+      input[type=submit] {
+        background-color: $primary-color;
+        border-radius: 1em;
+        height: 3.5em;
+        @extend %primary-shadow;
+      }
+    }
   }
 }

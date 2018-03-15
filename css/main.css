@@ -48,6 +48,9 @@ table {
 /******************/
 /* General styles */
 /******************/
+nav, article, article.chat, section a.btn, section form#login fieldset input[type=submit] {
+  box-shadow: 0 0.1rem grey; }
+
 body {
   font-size: 1em;
   font-family: sans-serif;
@@ -74,7 +77,7 @@ h4 {
 /* Header */
 /**********/
 nav {
-  background-color: grey;
+  background-color: #FFF;
   position: fixed;
   width: 100%;
   top: 0; }
@@ -147,7 +150,8 @@ main {
 article {
   background-color: #FFF;
   padding: 1em;
-  border-radius: 1em; }
+  border-radius: 1em;
+  margin-bottom: 1em; }
   article div.nameAndAvatar {
     display: flex;
     flex-direction: row-reverse;
@@ -183,5 +187,43 @@ article {
       grid-column: 1 / 1; }
     article div.likeDislikeButtons img:nth-child(even) {
       grid-column: 2 / 2; }
+    article div.likeDislikeButtons button {
+      justify-self: center;
+      width: 6em; }
+
+article.chat {
+  display: flex;
+  flex-direction: row; }
+  article.chat img {
+    width: 4em;
+    height: 4em;
+    border-radius: 50%; }
+  article.chat div.chatText {
+    display: flex;
+    flex-direction: column;
+    margin: -1em 0 0 1em; }
+
+section {
+  display: flex;
+  flex-direction: column; }
+  section h3 {
+    margin: 1em 0; }
+  section a.btn {
+    background-color: #FFF;
+    border-radius: 1em;
+    margin: 1em;
+    padding: 1em;
+    text-align: center; }
+  section form#login fieldset {
+    display: flex;
+    flex-direction: column; }
+    section form#login fieldset input {
+      margin: 0.5em 0 1.5em 0;
+      width: 100%;
+      font-size: 1em; }
+    section form#login fieldset input[type=submit] {
+      background-color: #FFF;
+      border-radius: 1em;
+      height: 3.5em; }
 
 /*# sourceMappingURL=main.css.map */

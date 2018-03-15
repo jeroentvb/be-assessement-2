@@ -2,7 +2,10 @@
 /* General styles */
 /******************/
 
-$primary-color: grey;
+$primary-color: #FFF;
+%primary-shadow {
+  box-shadow: 0 0.1rem grey;
+}
 $light-grey: #e6e6e9;
 $white: #FFF;
 
