@@ -1,0 +1,53 @@
+/******************/
+/* General styles */
+/******************/
+
+$primary-color: grey;
+$light-grey: #e6e6e9;
+$white: #FFF;
+
+@mixin mobile-grid() {
+  display: grid;
+  grid-template-columns: repeat(2, auto);
+  grid-column-gap: 1em;
+
+  img {
+    width: 100%;
+  }
+
+  img:nth-child(odd) {
+    grid-column: 1 / 1;
+  }
+
+  img:nth-child(even) {
+    grid-column: 2 / 2;
+  }
+}
+
+body {
+  font-size: 1em;
+  font-family: sans-serif;
+  background-color: $light-grey;
+}
+
+button {
+  border: none;
+  box-shadow: none;
+  background-color: transparent;
+}
+
+h1 {
+  font-size: 2em;
+}
+
+h2 {
+  font-size: 1.5em;
+}
+
+h3 {
+  font-size: 1.25em;
+}
+
+h4  {
+  font-size: 1.1em;
+}

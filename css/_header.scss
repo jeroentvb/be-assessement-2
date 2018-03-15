@@ -1,0 +1,105 @@
+/**********/
+/* Header */
+/**********/
+
+nav {
+  background-color: $primary-color;
+  position: fixed;
+  width: 100%;
+  top: 0;
+
+  ul {
+    list-style-type: none;
+    display: flex;
+  }
+
+  img {
+    width: 2em;
+  }
+
+  li {
+    align-self: center;
+  }
+
+  li:nth-child(1) {
+    flex-grow: 1;
+    margin: 0.5em;
+
+    img {
+      width: 2em;
+    }
+  }
+
+  li:nth-child(2) {
+    flex-grow: 1;
+  }
+
+  li:nth-child(3) img {
+    width: 3em;
+  }
+
+  ul li button {
+    background-color: transparent;
+  }
+}
+
+@keyframes show-menu {
+  100% {
+    margin-right: 0;
+  }
+}
+
+@keyframes hide-menu {
+  0% {
+    margin-right: 0;
+  }
+  100% {
+    margin-right: -10em;
+  }
+}
+
+.showMenu {
+  animation: show-menu 0.2s forwards;
+}
+
+.hideMenu {
+  animation: hide-menu 0.2s forwards;
+}
+
+nav #hamburgerMenu {
+  background-color: $white;
+  border-left: 0.1em solid black;
+  padding-bottom: 100%;
+  position: fixed;
+  top: 0;
+  right: 0;
+  // display: none;
+  margin-right: -10em;
+  transition: 0.2s;
+  overflow: hidden;
+
+  ul {
+    flex-direction: column;
+    margin-right: 2.5em;
+    margin-top: -0.2em;
+
+    li {
+      align-self: flex-start;
+    }
+
+    li:nth-child(n+1) {
+      margin: 1em;
+    }
+
+    li:nth-child(1) {
+      flex-direction: row;
+      h3 {
+        display: inline;
+      }
+      img {
+        width: 3em;
+        margin: -0.5em -1.5em -0.5em 0;
+      }
+    }
+  }
+}

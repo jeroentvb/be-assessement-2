@@ -55,7 +55,8 @@ body {
 
 button {
   border: none;
-  box-shadow: none; }
+  box-shadow: none;
+  background-color: transparent; }
 
 h1 {
   font-size: 2em; }
@@ -93,8 +94,48 @@ nav {
     flex-grow: 1; }
   nav li:nth-child(3) img {
     width: 3em; }
-  nav li button {
-    background-color: grey; }
+  nav ul li button {
+    background-color: transparent; }
+
+@keyframes show-menu {
+  100% {
+    margin-right: 0; } }
+@keyframes hide-menu {
+  0% {
+    margin-right: 0; }
+  100% {
+    margin-right: -10em; } }
+.showMenu {
+  animation: show-menu 0.2s forwards; }
+
+.hideMenu {
+  animation: hide-menu 0.2s forwards; }
+
+nav #hamburgerMenu {
+  background-color: #FFF;
+  border-left: 0.1em solid black;
+  padding-bottom: 100%;
+  position: fixed;
+  top: 0;
+  right: 0;
+  margin-right: -10em;
+  transition: 0.2s;
+  overflow: hidden; }
+  nav #hamburgerMenu ul {
+    flex-direction: column;
+    margin-right: 2.5em;
+    margin-top: -0.2em; }
+    nav #hamburgerMenu ul li {
+      align-self: flex-start; }
+    nav #hamburgerMenu ul li:nth-child(n+1) {
+      margin: 1em; }
+    nav #hamburgerMenu ul li:nth-child(1) {
+      flex-direction: row; }
+      nav #hamburgerMenu ul li:nth-child(1) h3 {
+        display: inline; }
+      nav #hamburgerMenu ul li:nth-child(1) img {
+        width: 3em;
+        margin: -0.5em -1.5em -0.5em 0; }
 
 /********/
 /* Main */
