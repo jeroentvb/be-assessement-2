@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <link rel="stylesheet" type="text/css" href="css/main.css">
+  <title>Sign up - WatchTogether</title>
+</head>
+
+<body>
+  <nav>
+    <ul>
+      <li><a href="welcome.html"><img src="images/back.png" alt="Chatlist icon" id="backBtn"></a></li>
+      <li>
+        <h2>Match preferences</h2></li>
+      <li><button id="menuBtn"><img src="images/menu.png" alt="Menu"></button></li>
+    </ul>
+  </nav>
+
+  <main>
+    <section>
+      <h2>Step 2/3</h2>
+      <h3>Add your compatibility matching preferences, or choose skip to only match based on series.</h3>
+      <form action="chooseseries.html" id="matchPrefs">
+        <fieldset>
+          <h3>Select preferred age</h3>
+          <select name="Select Age" id="selectAge">
+            <option value="18 - 22">18 - 22</option>
+            <option value="23 - 27">23 - 27</option>
+            <option value="27 - 30">27 - 30</option>
+          </select>
+          </fieldset>
+
+          <fieldset id="genderPref">
+          <h3>Interested in:</h3>
+          <label for="men">Men</label>
+          <input type="radio" id="men">
+
+          <label for="woman">Woman</label>
+          <input type="radio" id="woman">
+
+          <label for="both">Both</label>
+          <input type="radio" id="both">
+        </fieldset>
+
+        <fieldset>
+          <h3><label for="addPfImage">Add a profile image</label></h3>
+          <input type="file" id="addPfImage">
+        </fieldset>
+
+        <fieldset>
+          <h3><label for="useLocation">Can we use your location to find nearby matches?</label></h3>
+          <input type="checkbox" id="useLocation">
+        </fieldset>
+
+        <fieldset>
+          <input type="submit" id="submitSearch" class="btn">
+        </fieldset>
+      </form>
+    </section>
+  </main>
+  <script src="js/script.js"></script>
+</body>
+
+</html>

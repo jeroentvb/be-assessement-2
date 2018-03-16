@@ -48,7 +48,7 @@ table {
 /******************/
 /* General styles */
 /******************/
-nav, article, article.chat, section a.btn, section form#login fieldset input[type=submit] {
+nav, article, article.chat, section a.btn, section form#login fieldset input[type=submit], section form#matchPrefs fieldset .btn {
   box-shadow: 0 0.1rem grey; }
 
 body {
@@ -206,8 +206,12 @@ article.chat {
 section {
   display: flex;
   flex-direction: column; }
+  section h1 {
+    margin-bottom: 1em; }
+  section h2 {
+    margin: 0.5em 0 1em 0; }
   section h3 {
-    margin: 1em 0; }
+    margin-bottom: 1em; }
   section a.btn {
     background-color: #FFF;
     border-radius: 1em;
@@ -224,6 +228,35 @@ section {
     section form#login fieldset input[type=submit] {
       background-color: #FFF;
       border-radius: 1em;
-      height: 3.5em; }
+      height: 3.5em;
+      margin-top: 1.5em; }
+  section form#matchPrefs fieldset {
+    margin-bottom: 1em;
+    font-size: 1em; }
+    section form#matchPrefs fieldset h3 {
+      margin-bottom: 0.5em; }
+    section form#matchPrefs fieldset input[type=checkbox], section form#matchPrefs fieldset input[type=radio] {
+      display: block;
+      margin-top: 0.5em; }
+    section form#matchPrefs fieldset .btn {
+      background-color: #FFF;
+      border-radius: 2em;
+      padding: 1em;
+      text-align: center;
+      font-size: 1em;
+      width: 100%; }
+  section form#matchPrefs fieldset#genderPref {
+    display: flex;
+    flex-direction: column; }
+  section div.movieGrid {
+    display: grid;
+    grid-template-columns: repeat(2, auto);
+    grid-column-gap: 1em; }
+    section div.movieGrid img {
+      width: 100%; }
+    section div.movieGrid img:nth-child(odd) {
+      grid-column: 1 / 1; }
+    section div.movieGrid img:nth-child(even) {
+      grid-column: 2 / 2; }
 
 /*# sourceMappingURL=main.css.map */
