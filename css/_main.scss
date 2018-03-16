@@ -93,8 +93,9 @@ section {
     margin: 1em;
     padding: 1em;
     text-align: center;
+    text-decoration: none;
+    color: black;
   }
-
 
   form#login {
     fieldset {
@@ -139,12 +140,20 @@ section {
         text-align: center;
         font-size: 1em;
         width: 100%;
+
       }
     }
 
     fieldset#genderPref {
       display: flex;
       flex-direction: column;
+    }
+  }
+
+  form fieldset {
+    input[type=text] {
+      font-size: 1em;
+      margin-bottom: 1em;
     }
   }
 

@@ -26,7 +26,7 @@ if (document.getElementsByClassName('likeDislikeButtons')[0] !== undefined) {
   var firstArticle = document.querySelector('#firstArticle');
 
   dislikeBtn.addEventListener('click', function() {
-    firstArticle.innerHTML = '';
+    firstArticle.remove();
   });
   likeBtn.addEventListener('click', function() {
     window.alert('It is a match!');

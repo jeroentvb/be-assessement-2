@@ -217,7 +217,9 @@ section {
     border-radius: 1em;
     margin: 1em;
     padding: 1em;
-    text-align: center; }
+    text-align: center;
+    text-decoration: none;
+    color: black; }
   section form#login fieldset {
     display: flex;
     flex-direction: column; }
@@ -248,6 +250,9 @@ section {
   section form#matchPrefs fieldset#genderPref {
     display: flex;
     flex-direction: column; }
+  section form fieldset input[type=text] {
+    font-size: 1em;
+    margin-bottom: 1em; }
   section div.movieGrid {
     display: grid;
     grid-template-columns: repeat(2, auto);
