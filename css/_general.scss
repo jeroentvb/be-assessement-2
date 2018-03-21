@@ -12,7 +12,7 @@ $white: #FFF;
 @mixin mobile-grid() {
   display: flex;
   flex-direction: row;
-  display: grid;
+  // display: grid;
   grid-template-columns: repeat(2, auto);
   grid-column-gap: 1em;
 

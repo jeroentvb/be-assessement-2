@@ -169,7 +169,6 @@ article {
   article div.movieGrid {
     display: flex;
     flex-direction: row;
-    display: grid;
     grid-template-columns: repeat(2, auto);
     grid-column-gap: 1em; }
     article div.movieGrid img {
@@ -183,7 +182,6 @@ article {
   article div.likeDislikeButtons {
     display: flex;
     flex-direction: row;
-    display: grid;
     grid-template-columns: repeat(2, auto);
     grid-column-gap: 1em;
     margin-top: 1em; }
@@ -264,7 +262,6 @@ section {
   section div.movieGrid {
     display: flex;
     flex-direction: row;
-    display: grid;
     grid-template-columns: repeat(2, auto);
     grid-column-gap: 1em; }
     section div.movieGrid img {

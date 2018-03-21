@@ -49,6 +49,8 @@ if (document.getElementsByClassName('movieGrid')[0] !== undefined) {
   var check = CSS.supports('display', 'grid');
   if (check === true) {
     var mobileGrid = document.querySelector('article div.movieGrid');
+    var mobileGridImg = document.querySelectorAll('article div.movieGrid img');
     mobileGrid.style.display = 'grid';
+    mobileGridImg.style.width = '50%';
   }
 }
