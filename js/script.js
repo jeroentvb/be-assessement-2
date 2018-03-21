@@ -42,3 +42,13 @@ if (document.getElementById('backBtn') !== null) {
     window.history.back();
   });
 }
+
+
+// Check if css grid is supported
+if (document.getElementsByClassName('movieGrid')[0] !== undefined) {
+  var check = CSS.supports('display', 'grid');
+  if (check === true) {
+    var mobileGrid = document.querySelector('article div.movieGrid');
+    mobileGrid.style.display = 'grid';
+  }
+}

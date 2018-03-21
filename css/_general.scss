@@ -10,6 +10,8 @@ $light-grey: #e6e6e9;
 $white: #FFF;
 
 @mixin mobile-grid() {
+  display: flex;
+  flex-direction: row;
   display: grid;
   grid-template-columns: repeat(2, auto);
   grid-column-gap: 1em;
@@ -19,10 +21,12 @@ $white: #FFF;
   }
 
   img:nth-child(odd) {
+    align-self: flex-start;
     grid-column: 1 / 1;
   }
 
   img:nth-child(even) {
+    align-self: flex-end;
     grid-column: 2 / 2;
   }
 }
