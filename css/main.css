@@ -173,7 +173,8 @@ article {
     grid-template-columns: repeat(2, auto);
     grid-column-gap: 1em; }
     article div.movieGrid img {
-      width: 100%; }
+      width: 100%;
+      margin-bottom: 0.5em; }
     article div.movieGrid img:nth-child(odd) {
       align-self: flex-start;
       grid-column: 1 / 1; }
@@ -188,7 +189,8 @@ article {
     grid-column-gap: 1em;
     margin-top: 1em; }
     article div.likeDislikeButtons img {
-      width: 100%; }
+      width: 100%;
+      margin-bottom: 0.5em; }
     article div.likeDislikeButtons img:nth-child(odd) {
       align-self: flex-start;
       grid-column: 1 / 1; }
@@ -268,7 +270,8 @@ section {
     grid-template-columns: repeat(2, auto);
     grid-column-gap: 1em; }
     section div.movieGrid img {
-      width: 100%; }
+      width: 100%;
+      margin-bottom: 0.5em; }
     section div.movieGrid img:nth-child(odd) {
       align-self: flex-start;
       grid-column: 1 / 1; }

@@ -21,16 +21,23 @@ if (document.getElementById('hamburgerMenu') !== null) {
 
 // Like/dislike buttons
 if (document.getElementsByClassName('likeDislikeButtons')[0] !== undefined) {
-  var dislikeBtn = document.querySelector('.dislike');
-  var likeBtn = document.querySelector('.like');
-  var firstArticle = document.querySelector('#firstArticle');
+  var dislikeBtn = document.querySelectorAll('.dislike');
+  var likeBtn = document.querySelectorAll('.like');
+  var personCard = document.querySelectorAll('.personCard');
 
-  dislikeBtn.addEventListener('click', function() {
-    firstArticle.remove();
-  });
-  likeBtn.addEventListener('click', function() {
+  var dislike = function dislike() {
+    personCard[0].remove();
+  };
+  for (var i=0; i < dislikeBtn.length; i++) {
+    dislikeBtn[i].addEventListener('click', dislike);
+  }
+
+  var like = function like() {
     window.alert('It is a match!');
-  });
+  };
+  for (var i=0; i < likeBtn.length; i++) {
+    likeBtn[i].addEventListener('click', like);
+  }
 }
 
 // Back button
@@ -41,16 +48,4 @@ if (document.getElementById('backBtn') !== null) {
     event.preventDefault();
     window.history.back();
   });
-}
-
-
-// Check if css grid is supported
-if (document.getElementsByClassName('movieGrid')[0] !== undefined) {
-  var check = CSS.supports('display', 'grid');
-  if (check === true) {
-    var mobileGrid = document.querySelector('article div.movieGrid');
-    var mobileGridImg = document.querySelectorAll('article div.movieGrid img');
-    mobileGrid.style.display = 'grid';
-    mobileGridImg.style.width = '50%';
-  }
 }
