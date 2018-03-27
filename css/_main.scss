@@ -51,6 +51,11 @@ article {
   }
 }
 
+main a {
+  text-decoration: none;
+  color: black;
+}
+
 article.chat {
   display: flex;
   flex-direction: row;

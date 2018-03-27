@@ -201,6 +201,10 @@ article {
       justify-self: center;
       width: 6em; }
 
+main a {
+  text-decoration: none;
+  color: black; }
+
 article.chat {
   display: flex;
   flex-direction: row; }
