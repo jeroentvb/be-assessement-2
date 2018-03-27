@@ -1,0 +1,27 @@
+{
+  "name": "project-tech-prototype",
+  "version": "1.0.0",
+  "description": "Project Tech Prototype",
+  "main": "index.js",
+  "scripts": {
+    "start": "node index"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/jeroentvb/project-tech.git"
+  },
+  "keywords": [],
+  "author": "Jeroen",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/jeroentvb/project-tech/issues"
+  },
+  "homepage": "https://github.com/jeroentvb/project-tech#readme",
+  "devDependencies": {
+    "nodemon": "^1.17.2"
+  },
+  "dependencies": {
+    "ejs": "^2.5.8",
+    "express": "^4.16.3"
+  }
+}
