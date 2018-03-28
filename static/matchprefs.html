@@ -22,10 +22,10 @@
     <section>
       <h2>Step 2/3</h2>
       <h3>Add your compatibility matching preferences, or choose skip to only match based on series.</h3>
-      <form action="chooseseries.html" id="matchPrefs">
+      <form action="register.html" id="matchPrefs">
         <fieldset>
           <h3>Select preferred age</h3>
-          <select name="Select Age" id="selectAge">
+          <select name="Select Age" id="selectAge" required>
             <option value="18 - 22">18 - 22</option>
             <option value="23 - 27">23 - 27</option>
             <option value="27 - 30">27 - 30</option>
@@ -56,6 +56,8 @@
 
         <fieldset>
           <input type="submit" id="submitSearch" class="btn">
+
+          <button>Skip</button>
         </fieldset>
       </form>
     </section>

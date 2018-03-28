@@ -24,20 +24,31 @@ if (document.getElementsByClassName('likeDislikeButtons')[0] !== undefined) {
   var dislikeBtn = document.querySelectorAll('.dislike');
   var likeBtn = document.querySelectorAll('.like');
   var personCard = document.querySelectorAll('.personCard');
+  // var main = document.querySelector('main');
 
-  var dislike = function dislike() {
-    personCard[0].remove();
-  };
+
   for (var i=0; i < dislikeBtn.length; i++) {
+    var dislike = function () {
+      this.remove();
+    };
     dislikeBtn[i].addEventListener('click', dislike);
   }
 
-  var like = function like() {
+  var like = function () {
     window.alert('It is a match!');
+    this.remove();
   };
+
   for (var i=0; i < likeBtn.length; i++) {
     likeBtn[i].addEventListener('click', like);
   }
+
+  // var checkArticles = function () {
+  //   var articleAmount = personCard.length;
+  //   if (articleAmount <= 0) {
+  //     main.innerHTML = '<h2>No matches left for today.</h2><h2>Come back tomorrow</h2>';
+  //   }
+  // }
 }
 
 // Back button
