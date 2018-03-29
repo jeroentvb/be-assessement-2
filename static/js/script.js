@@ -24,31 +24,34 @@ if (document.getElementsByClassName('likeDislikeButtons')[0] !== undefined) {
   var dislikeBtn = document.querySelectorAll('.dislike');
   var likeBtn = document.querySelectorAll('.like');
   var personCard = document.querySelectorAll('.personCard');
-  // var main = document.querySelector('main');
+  var main = document.querySelector('main');
 
-
+  // Dislike button
   for (var i=0; i < dislikeBtn.length; i++) {
     var dislike = function () {
-      this.remove();
+      this.parentNode.parentNode.parentNode.remove();
+      checkArticles();
     };
     dislikeBtn[i].addEventListener('click', dislike);
   }
 
-  var like = function () {
-    window.alert('It is a match!');
-    this.remove();
-  };
-
+  // Likebutton
   for (var i=0; i < likeBtn.length; i++) {
+    var like = function () {
+      window.alert('It is a match!');
+      this.parentNode.parentNode.parentNode.remove();
+      checkArticles();
+    };
     likeBtn[i].addEventListener('click', like);
   }
 
-  // var checkArticles = function () {
-  //   var articleAmount = personCard.length;
-  //   if (articleAmount <= 0) {
-  //     main.innerHTML = '<h2>No matches left for today.</h2><h2>Come back tomorrow</h2>';
-  //   }
-  // }
+  // Check if there are <= 0 articles
+  var checkArticles = function () {
+    var articleAmount = document.querySelectorAll('.personCard').length;
+    if (articleAmount <= 0) {
+      main.innerHTML = '<h2>No matches left for today.</h2><h2>Come back tomorrow.</h2><p>Go <a href="chatlist">chat</a> with your matches</p>';
+    }
+  }
 }
 
 // Back button

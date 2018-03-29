@@ -32,10 +32,20 @@
     </section>
     <section>
         <h3>Popular series</h3>
+        <form action="matchprefs.html">
         <div class="movieGrid">
-          <a href="matchprefs.html"><img src="images/westworld.jpg" alt="Westworld"></a>
-          <a href="matchprefs.html"><img src="images/black-mirror.jpg" alt="Black Mirror"></a>
+          <div class="checkboxImg">
+            <input type="checkbox" id="checkbox" class="checkbox">
+            <label for="checkbox" class="checkboxLabel"><img src="images/westworld.jpg" alt="Westworld"></label>
+          </div>
+
+          <div class="checkboxImg">
+            <input type="checkbox" id="checkbox">
+            <label for="checkbox" class="checkboxLabel"><img src="images/black-mirror.jpg" alt="Black Mirror"></label>
+          </div>
         </div>
+        <input type="submit">
+        </form>
     </section>
   </main>
   <script src="js/script.js"></script>

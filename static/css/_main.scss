@@ -164,5 +164,6 @@ section {
 
   div.movieGrid {
     @include mobile-grid;
+    @include checkbox-image;
   }
 }

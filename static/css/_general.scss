@@ -9,6 +9,22 @@ $primary-color: #FFF;
 $light-grey: #e6e6e9;
 $white: #FFF;
 
+@mixin checkbox-image {
+  label img {
+    transition: 0.2s;
+  }
+
+  div.checkboxImg {
+    input[type=checkbox] {
+      display: none;
+    }
+
+    .checkbox:checked + label img {
+      opacity: 0.5;
+    }
+  }
+}
+
 @mixin mobile-grid() {
   display: flex;
   flex-direction: column;

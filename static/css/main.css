@@ -282,5 +282,11 @@ section {
     section div.movieGrid img:nth-child(even) {
       align-self: flex-end;
       grid-column: 2 / 2; }
+    section div.movieGrid label img {
+      transition: 0.2s; }
+    section div.movieGrid div.checkboxImg input[type=checkbox] {
+      display: none; }
+    section div.movieGrid div.checkboxImg .checkbox:checked + label img {
+      opacity: 0.5; }
 
 /*# sourceMappingURL=main.css.map */
