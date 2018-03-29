@@ -9,6 +9,7 @@ module.exports = express()
   .get('/index', index)
   .get('/profile', render)
   .get('/chatlist', render)
+  .get('/error', render)
   .listen(3000, () => console.log('server running on port 3000...'))
 
 function index(req, res) {
@@ -16,7 +17,12 @@ function index(req, res) {
 }
 
 function render(req, res) {
-  var urlObj = url.parse(req.url)
-  var urlPath = urlObj.path.replace('/', '')
-  res.render(urlPath)
+  try {
+    var urlObj = url.parse(req.url)
+    var urlPath = urlObj.path.replace('/', '')
+    res.render(urlPath)
+  } catch (err) {
+    res.status(404)
+    res.render('error')
+  }
 }
