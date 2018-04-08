@@ -1,7 +1,31 @@
 <% include head %>
 
 <main>
+  <% for(i=0; i < data.length; i++) { %>
   <article class="personCard">
+    <div class="nameAndAvatar">
+      <h2><%= data[i].name %></h2>
+      <img src="images/<%= data[i].avatar %>.jpg" alt="profile image">
+    </div>
+    <h4><%= data[i].tagline %></h3>
+    <h2>Currently watching:</h2>
+    <div class="movieGrid">
+      <img src="images/<%= data[i].series[0] %>.jpg" alt="Currently watching image 1">
+      <img src="images/<%= data[i].series[1] %>.jpg" alt="Currently watching image 2">
+    </div>
+    <div class="likeDislikeButtons">
+      <button>
+        <img src="images/close.png" alt="Dislike" class="dislike">
+      </button>
+      <button>
+        <img src="images/like.png" alt="Like" class="like">
+      </button>
+    </div>
+  </article>
+  <% } %>
+
+
+  <%# <article class="personCard">
     <div class="nameAndAvatar">
       <h2>Julia</h2>
       <img src="images/julia.jpg" alt="profile image">
@@ -42,6 +66,6 @@
       </button>
     </div>
   </article>
-</main>
+</main> %>
 
 <% include tail %>

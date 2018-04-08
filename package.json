@@ -18,10 +18,15 @@
   },
   "homepage": "https://github.com/jeroentvb/project-tech#readme",
   "devDependencies": {
+    "chalk": "^2.3.2",
     "nodemon": "^1.17.2"
   },
   "dependencies": {
+    "body-parser": "^1.18.2",
+    "dotenv": "^5.0.1",
     "ejs": "^2.5.8",
-    "express": "^4.16.3"
+    "express": "^4.16.3",
+    "multer": "^1.3.0",
+    "mysql": "^2.15.0"
   }
 }
