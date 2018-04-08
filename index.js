@@ -67,13 +67,13 @@ function index(req, res) {
   res.render('index', {data: data})
 }
 
-function render(req, res, err) {
+function render(req, res) {
   // get the url and put it in a var
-  var urlPath = req.path.replace('/', '').replace('.html', '')
+  var reqPath = req.path.replace('/', '').replace('.html', '')
   // try to render the requested url
-  console.log(chalk.red('The req url was: ' + urlPath))
+  console.log(chalk.red('The req url was: ' + reqPath))
   // render page
-  res.render(urlPath)
+  res.render(reqPath)
 }
 
 // function form(req, res) {
