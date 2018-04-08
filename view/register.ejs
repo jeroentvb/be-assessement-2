@@ -1,0 +1,33 @@
+<% include head2 %>
+
+  <main>
+    <section>
+      <h2>Step 3/3</h2>
+      <form action="/" method="post" id="login">
+        <fieldset>
+          <label for="name">Name</label>
+          <input type="text" id="name" required name="name">
+
+          <label for="email">E-mail adress</label>
+          <input type="email" id="email" required name="email">
+
+          <label for="confirmEmail">Confirm e-mail adress</label>
+          <input type="email" id="confirmEmail" required>
+
+          <label for="passwd">Password</label>
+          <input type="password" id="passwd" required name="password">
+
+          <label for="confirmPasswd">Confirm password</label>
+          <input type="password" id="confirmPasswd" required>
+
+          <input type="submit">
+        </fieldset>
+      </form>
+    </section>
+  </main>
+  <script src="js/script.js"></script>
+</body>
+
+</html>
+
+<% include tail %>
