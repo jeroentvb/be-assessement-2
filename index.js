@@ -78,10 +78,11 @@ module.exports = express()
     secret: process.env.SESSION_SECRET
   }))
   .get('/', index)
-  .get('/index', index)
-  .get('index.html', index)
+  .get('/index' || 'index.html', index)
   .get('/profile' || 'profile.html', profile)
-  .get('/chatlist', render)
+  .get('/chatlist' || 'chatlist.html', chatlist)
+  .get('/settings' || 'settings.html', settings)
+  .post('/update-avatar', upload.single('avatar'), updateAvatar)
   .get(/html/, render)
   .post('/', register)
   .get('/register', render)
@@ -107,7 +108,7 @@ module.exports = express()
 
 // // create create users table
 // function addUsr(req, res) {
-//   var sql = 'CREATE TABLE users(id int NOT NULL AUTO_INCREMENT, email VARCHAR(255), password VARCHAR(255), name VARCHAR(255), tagline VARCHAR(255), PRIMARY KEY (id))'
+//   var sql = 'CREATE TABLE IF NOT EXISTS users(id int NOT NULL AUTO_INCREMENT, email VARCHAR(255), password VARCHAR(255), name VARCHAR(255), tagline VARCHAR(255), PRIMARY KEY (id))'
 //   db.query(sql, function(err, result) {
 //     if(err) {
 //       throw err
@@ -123,7 +124,8 @@ function index(req, res) {
   // log req.path
   console.log(chalk.yellow('[Server] Requested path was ' + req.path))
   // Get random selection of users from db
-  db.query('SELECT name, tagline FROM users ORDER BY RAND() LIMIT 3', done)
+  // Select random query from: https://stackoverflow.com/questions/580639/how-to-randomly-select-rows-in-sql?utm_medium=organic&utm_source=google_rich_qa&utm_campaign=google_rich_qa
+  db.query('SELECT name, tagline, series1, series2 FROM users ORDER BY RAND() LIMIT 3', done)
   function done(err, results) {
     // JSON.stringify(results, null, 4) <-- got this from https://stackoverflow.com/questions/1625208/print-content-of-javascript-object?utm_medium=organic&utm_source=google_rich_qa&utm_campaign=google_rich_qa
     console.log(chalk.red('These are the query results: \n' + JSON.stringify(results, null, 4)))
@@ -134,8 +136,9 @@ function index(req, res) {
   }
 }
 
+// Render profile
 function profile(req, res, next) {
-  console.log(chalk.yellow('[Server] Requested path was ' + req.path))
+  console.log(chalk.yellow('[Server] Requested path was profile'))
   // console.log(chalk.red(`req.session.user is ${req.session.user}`))
   // console.log(chalk.red(`req.session.email is ${req.session.email}`))
   if (req.session.user == undefined) {
@@ -145,18 +148,20 @@ function profile(req, res, next) {
     // Log current session user's name
     // console.log(chalk.blue(`the current user is ${currentUser}`))
 
-    db.query('SELECT tagline FROM users WHERE name = ?', currentUser, done)
+    // db.query('SELECT tagline FROM users WHERE name = ?', currentUser, done)
+    db.query('SELECT tagline, avatar, series1, series2 FROM users WHERE name = ?', currentUser, done)
+
 
     function done(err, results) {
       // Log the data got from the db
       console.log(chalk.red('These are the query results: \n' + JSON.stringify(results, null, 4)))
       // log the tagline
       // console.log(chalk.blue(results[0].tagline))
-      if (results[0].tagline == null) {
+      if (results[0].avatar == null) {
         // If there is no tagline
         res.render('profile', {
           user: req.session.user,
-          tagline: 'You have no tagline set'
+          avatar: 'default'
         })
       } else if(err) {
         // if error
@@ -165,9 +170,49 @@ function profile(req, res, next) {
         // if everything is found
         res.render('profile', {
           user: req.session.user,
-          tagline: results[0].tagline
+          tagline: results[0].tagline,
+          avatar: results[0].avatar,
+          series1: results[0].series1,
+          series2: results[0].series2
         })
       }
+    }
+  }
+}
+
+// Render Chatlist
+function chatlist(req, res) {
+  if (req.session.user == undefined) {
+    res.status(401).render('needlogin')
+  } else {
+    res.render('chatlist')
+  }
+}
+
+// Render settings
+function settings(req, res) {
+  console.log(chalk.yellow('The requested path was settings'))
+  if (req.session.user == undefined) {
+    res.status(401).render('needlogin')
+  } else {
+    res.render('settings')
+  }
+}
+
+// Update avatar
+function updateAvatar(req, res, next) {
+  // Get the uploaded file and the current user
+  var avatar = req.file ? req.file.filename : null
+  var currentUser = req.session.user.name
+  // console.log(chalk.yellow(currentUser))
+  // console.log(chalk.red(`Avatar: ${avatar}`))
+  // Put the avatar in the database for the correct user
+  db.query('UPDATE users SET avatar = ? WHERE name = ?', [avatar, currentUser], done)
+  function done(err, results) {
+    if(err){
+      next(err)
+    } else {
+      res.redirect('/')
     }
   }
 }
@@ -198,6 +243,27 @@ function register(req, res) {
     res.status(400).send('Name, email or password are missing!')
     return
   }
+  // Check if email is already used
+  // db.query('SELECT email FROM users', compareEmail)
+  // function compareEmail(err, data) {
+  //   if(err) {
+  //     next(err)
+  //   } else {
+  //     console.log(chalk.red(JSON.stringify(data, null, 4)))
+  //     for (i=0; i < data.length; i++) {
+  //       if (data[i].email == email) {
+  //         console.log(chalk.red(`${data[i].email} matches ${email}`))
+  //         // render('error', {error: 'The email adress has already been used'})
+  //       }
+  //     }
+  //   }
+  // }
+  // if (email == dbEmail) {
+  //   res.status(409).render('error', {error: 'The email adress has already been used'})
+  //   return
+  // }
+
+
   // check if passwd is long enough but not too long
   if (passwd.length < passwdLength.min || passwd.length > passwdLength.max) {
     res.status(400).send(`Your password must be between ${passwdLength.min} and ${passwdLength.max} characters.`)
@@ -208,15 +274,17 @@ function register(req, res) {
   db.query('INSERT INTO users SET ?', {
     name: name,
     email: email,
-    password: hash
+    password: hash,
+    tagline: 'No tagline set'
   }, done)
-})
+  })
   // check if an error ocurred, else: redirect to /
   function done(err, data) {
     if(err){
       next(err)
     } else {
-      req.session.user = {email: user.email}
+      req.session.user = {name: name}
+      // console.log(chalk.red(JSON.stringify(req.session.user, null, 4))
       res.redirect('/')
     }
   }
@@ -270,6 +338,7 @@ function login(req, res, next) {
   }
 }
 
+// Log out
 function logout(req, res, next) {
   req.session.destroy(function (err) {
     if (err) {

@@ -1,0 +1,22 @@
+<% include head %>
+
+<main>
+  <article>
+    <form action="/update-avatar" method="post" enctype="multipart/form-data">
+      <label for="avatar">Profile image</label>
+      <input type="file" name="avatar" id="avatar" accept="image/*">
+      <input type="submit">
+    </form>
+
+    <form action="/update-tagline" method="post">
+      <label for="tagline">Tagline</label>
+      <input type="text" name="tagline" id="tagline">
+      <input type="submit">
+    </form>
+  </article>
+  <section>
+    <a href="welcome.html" class="btn">Log out</a>
+  </section>
+</main>
+
+<% include tail %>

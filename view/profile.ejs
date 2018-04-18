@@ -4,13 +4,13 @@
   <article>
     <div class="nameAndAvatar">
       <h2><%= user.name %></h2>
-      <img src="images/placeholder.jpg" alt="Profile image">
+      <img src="upload/<%= avatar %>" alt="Profile image">
     </div>
     <h4><%= tagline %></h3>
     <h2>Currently watching:</h2>
     <div class="movieGrid">
-      <img src="images/westworld.jpg" alt="Currently watching image 1">
-      <img src="images/westworld.jpg" alt="Currently watching image 2">
+      <img src="images/<%= series1 %>.jpg" alt="Currently watching image 1">
+      <img src="images/<%= series2 %>.jpg" alt="Currently watching image 2">
     </div>
     <button type="button" name="remove" id="deleteAccount">Delete account</button>
     <a href="/log-out">Log out</a>

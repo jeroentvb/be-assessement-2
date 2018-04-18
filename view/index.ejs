@@ -7,11 +7,13 @@
       <h2><%= users[i].name %></h2>
       <img src="images/<%= users[i].avatar %>.jpg" alt="profile image">
     </div>
+    <% if (users[i].tagline != 'No tagline set') { %>
     <h4><%= users[i].tagline %></h3>
+    <% } %>
     <h2>Currently watching:</h2>
     <div class="movieGrid">
-      <img src="images/<%= users[i].series %>.jpg" alt="Currently watching image 1">
-      <img src="images/<%= users[i].series %>.jpg" alt="Currently watching image 2">
+      <img src="images/<%= users[i].series1 %>.jpg" alt="Currently watching image 1">
+      <img src="images/<%= users[i].series2 %>.jpg" alt="Currently watching image 2">
     </div>
     <div class="likeDislikeButtons">
       <button>
