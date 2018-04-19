@@ -48,7 +48,7 @@ table {
 /******************/
 /* General styles */
 /******************/
-nav, article, article.chat, section a.btn, section form#login fieldset input[type=submit], section form#matchPrefs fieldset .btn {
+nav, article, article.chat, section a.btn, section form#login fieldset input[type=submit], section form#matchPrefs fieldset .btn, .settingsForm input[type=submit], #submitSeries, form#matchPrefs .skip-btn {
   box-shadow: 0 0.1rem grey; }
 
 body {
@@ -121,6 +121,7 @@ nav #hamburgerMenu {
   position: fixed;
   top: 0;
   right: 0;
+  bottom: 0;
   margin-right: -10em;
   transition: 0.2s;
   overflow: hidden; }
@@ -152,16 +153,21 @@ article {
   padding: 1em;
   border-radius: 1em;
   margin-bottom: 1em; }
+  article a {
+    text-decoration: underline; }
   article div.nameAndAvatar {
     display: flex;
     flex-direction: row-reverse;
     justify-content: flex-end;
     align-items: center;
     margin-bottom: 1em; }
-    article div.nameAndAvatar img {
+    article div.nameAndAvatar div {
       border-radius: 50%;
       width: 8em;
-      height: 8em; }
+      height: 8em;
+      overflow: hidden; }
+      article div.nameAndAvatar div img {
+        height: 8em; }
     article div.nameAndAvatar h2 {
       margin: 0 1em; }
   article h2 {
@@ -246,6 +252,10 @@ section {
       border-radius: 1em;
       height: 3.5em;
       margin-top: 1.5em; }
+  section form#login h3 {
+    margin-top: 1em; }
+  section form#login a {
+    text-decoration: underline; }
   section form#matchPrefs fieldset {
     margin-bottom: 1em;
     font-size: 1em; }
@@ -288,5 +298,50 @@ section {
       display: none; }
     section div.movieGrid div.checkboxImg .checkbox:checked + label img {
       opacity: 0.5; }
+
+.settingsForm label {
+  display: block;
+  font-size: 1.2em;
+  margin-bottom: 0.5em; }
+.settingsForm input[type=text], .settingsForm input[type=password], .settingsForm input[type=file] {
+  width: 100%;
+  font-size: 1em; }
+.settingsForm input[type=submit] {
+  margin: 0.8em 0 0.5em 0;
+  display: block;
+  background-color: light-grey;
+  border-radius: 0.5em;
+  font-size: 1em;
+  width: 8em;
+  height: 2em;
+  border: none; }
+.settingsForm .danger {
+  background-color: #c10005;
+  color: #FFF; }
+
+#submitSeries {
+  background-color: #FFF;
+  border-radius: 2em;
+  padding: 1em;
+  text-align: center;
+  font-size: 1em;
+  width: 100%; }
+
+form#matchPrefs input[type=radio] {
+  margin-bottom: 1.2em; }
+form#matchPrefs input[type=text] {
+  width: 100%; }
+form#matchPrefs .skip-btn {
+  background-color: #c10005;
+  color: #FFF;
+  border-radius: 2em;
+  padding: 1em;
+  text-align: center;
+  font-size: 1em;
+  width: 100%;
+  margin-top: 1em; }
+
+#needlogin a {
+  text-decoration: underline; }
 
 /*# sourceMappingURL=main.css.map */

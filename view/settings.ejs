@@ -2,21 +2,33 @@
 
 <main>
   <article>
-    <form action="/update-avatar" method="post" enctype="multipart/form-data">
-      <label for="avatar">Profile image</label>
+    <form action="/update-avatar" method="post" enctype="multipart/form-data" class="settingsForm">
+      <label for="avatar">Update profile image</label>
       <input type="file" name="avatar" id="avatar" accept="image/*">
       <input type="submit">
     </form>
+  </article>
 
-    <form action="/update-tagline" method="post">
-      <label for="tagline">Tagline</label>
-      <input type="text" name="tagline" id="tagline">
+  <article>
+    <form action="/update-tagline" method="post" class="settingsForm">
+      <label for="tagline">Update tagline</label>
+      <input type="text" name="tagline" id="tagline" placeholder="My awesome tagline!">
       <input type="submit">
     </form>
   </article>
+  <article>
+    <form action="/remove" method="post" class="settingsForm">
+      <label for="deleteAccount">Delete Account</label>
+      <input type="password" name="password" placeholder="Put in your password to confirm" id="deleteAccount">
+
+      <input type="submit" class="btn danger">
+    </form>
+  </article>
+
   <section>
-    <a href="welcome.html" class="btn">Log out</a>
+    <a href="/log-out" class="btn">Log out</a>
   </section>
+
 </main>
 
 <% include tail %>

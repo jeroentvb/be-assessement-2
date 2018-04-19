@@ -1,0 +1,48 @@
+<%- include('head2', {page: page}) %>
+
+<main>
+  <section>
+    <h2>Step 3/3</h2>
+    <h3>Add your compatibility matching preferences, or choose skip to only match based on series.</h3>
+    <form action="/prefsChosen" id="matchPrefs" method="post">
+      <fieldset>
+        <h3>Select preferred age</h3>
+        <select name="selectAge" id="selectAge" required>
+          <option value="18 - 22">18 - 22</option>
+          <option value="23 - 27">23 - 27</option>
+          <option value="27 - 30">27 - 30</option>
+        </select>
+        </fieldset>
+
+        <fieldset id="genderPref">
+        <h3>Interested in:</h3>
+        <label for="men">Men</label>
+        <input type="radio" id="men" name="gender" value="men">
+
+        <label for="woman">Woman</label>
+        <input type="radio" id="woman" name="gender" value="woman">
+
+        <label for="both">Both</label>
+        <input type="radio" id="both" name="gender" value="both">
+      </fieldset>
+
+      <fieldset>
+        <label for="tagline"><h3>Tagline:</h3></label>
+        <input type="text" name="tagline" id="tagline" placeholder="Leave this empty if you want">
+      </fieldset>
+
+      <fieldset>
+        <h3><label for="useLocation">Can we use your location to find nearby matches?</label></h3>
+        <input type="checkbox" id="useLocation">
+      </fieldset>
+
+      <fieldset>
+        <input type="submit" id="submitSearch" class="btn">
+
+        <button class="skip-btn">Skip</button>
+      </fieldset>
+    </form>
+  </section>
+</main>
+
+<% include tail %>

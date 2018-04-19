@@ -1,0 +1,53 @@
+<%- include('head2', {page: page}) %>
+
+<main>
+  <section>
+    <h2>Step 2/3</h2>
+    <h3>Choose 2 series to add to your profile</h3>
+    <form action="matchprefs.html">
+      <fieldset>
+        <input type="text" id="searchField" required placeholder="Search for a series">
+        <input type="submit" id="submitSearch">
+      </fieldset>
+    </form>
+  </section>
+  <section>
+      <h3>Popular series</h3>
+      <form action="/seriesChosen" method="post">
+      <div class="movieGrid">
+        <div class="checkboxImg">
+          <input type="checkbox" id="westworld" class="checkbox" name="westworld">
+          <label for="westworld" class="checkboxLabel"><img src="images/westworld.jpg" alt="Westworld"></label>
+        </div>
+
+        <div class="checkboxImg">
+          <input type="checkbox" id="blackMirror" class="checkbox" name="blackMirror">
+          <label for="blackMirror" class="checkboxLabel"><img src="images/blackMirror.jpg" alt="Black Mirror"></label>
+        </div>
+
+        <div class="checkboxImg">
+          <input type="checkbox" id="poi" class="checkbox" name="poi">
+          <label for="poi" class="checkboxLabel"><img src="images/poi.jpg" alt="Person if Interest"></label>
+        </div>
+
+        <div class="checkboxImg">
+          <input type="checkbox" id="arrow" class="checkbox" name="arrow">
+          <label for="arrow" class="checkboxLabel"><img src="images/arrow.jpg" alt="Arrow"></label>
+        </div>
+
+        <div class="checkboxImg">
+          <input type="checkbox" id="flash" class="checkbox" name="flash">
+          <label for="flash" class="checkboxLabel"><img src="images/flash.jpg" alt="Flash"></label>
+        </div>
+
+        <div class="checkboxImg">
+          <input type="checkbox" id="breakingBad" class="checkbox" name="breakingBad">
+          <label for="breakingBad" class="checkboxLabel"><img src="images/breakingBad.jpg" alt="Breaking bad"></label>
+        </div>
+      </div>
+      <input type="submit" id="submitSeries">
+      </form>
+  </section>
+</main>
+
+<% include tail %>

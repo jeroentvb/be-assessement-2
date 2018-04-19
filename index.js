@@ -5,6 +5,7 @@ var bodyParser = require('body-parser')
 var multer = require('multer')
 var mysql = require('mysql')
 var bcrypt = require('bcrypt')
+var jimp = require('jimp')
 var chalk = require('chalk')
 
 require('dotenv').config()
@@ -83,9 +84,16 @@ module.exports = express()
   .get('/chatlist' || 'chatlist.html', chatlist)
   .get('/settings' || 'settings.html', settings)
   .post('/update-avatar', upload.single('avatar'), updateAvatar)
+  .post('/update-tagline', updateTagline)
+  .post('/remove', remove)
   .get(/html/, render)
   .post('/', register)
+  .get('/welcome', render)
   .get('/register', render)
+  .post('/seriesChosen', seriesChosen)
+  .get('/chooseseries', render)
+  .post('/prefsChosen', prefsChosen)
+  .get('/matchprefs', render)
   .get('/login', render)
   .post('/log-in', login)
   .get('/log-out', logout)
@@ -120,19 +128,40 @@ module.exports = express()
 // }
 
 // render index
-function index(req, res) {
+function index(req, res, next) {
   // log req.path
   console.log(chalk.yellow('[Server] Requested path was ' + req.path))
-  // Get random selection of users from db
-  // Select random query from: https://stackoverflow.com/questions/580639/how-to-randomly-select-rows-in-sql?utm_medium=organic&utm_source=google_rich_qa&utm_campaign=google_rich_qa
-  db.query('SELECT name, tagline, series1, series2 FROM users ORDER BY RAND() LIMIT 3', done)
-  function done(err, results) {
-    // JSON.stringify(results, null, 4) <-- got this from https://stackoverflow.com/questions/1625208/print-content-of-javascript-object?utm_medium=organic&utm_source=google_rich_qa&utm_campaign=google_rich_qa
-    console.log(chalk.red('These are the query results: \n' + JSON.stringify(results, null, 4)))
-    // render index.ejs
-    res.render('index', {
-      users: results
+  // Show error if the user is not loggen in
+  if (req.session.user == undefined) {
+    res.status(401).render('needlogin', {
+      page: 'Need login'
     })
+  } else {
+    // Get user's email
+    var currentUser = req.session.user.email
+    // console.log(chalk.red(`Current user's email: ${currentUser}`))
+    // Get matchingpreferences from the db
+    db.query('SELECT genderpref, agepref FROM users WHERE email = ?', currentUser, gotPrefs)
+    function gotPrefs(err, data) {
+      if(err) {
+        next(err)
+      } else {
+        console.log(chalk.red(JSON.stringify(data, null, 4)))
+        var genderPref = data[0].genderpref
+        var agePref = data[0].agepref
+        // Get people from the db that match the preferences
+        db.query('SELECT name, tagline, avatar, series1, series2 FROM users WHERE NOT genderpref = ? AND agepref = ? LIMIT 3', [genderPref, agePref], done)
+        function done(err, results) {
+          if(err) {
+            next(err)
+          } else {
+            res.render('index', {
+              users: results
+            })
+          }
+        }
+      }
+    }
   }
 }
 
@@ -142,7 +171,9 @@ function profile(req, res, next) {
   // console.log(chalk.red(`req.session.user is ${req.session.user}`))
   // console.log(chalk.red(`req.session.email is ${req.session.email}`))
   if (req.session.user == undefined) {
-    res.status(401).render('needlogin')
+    res.status(401).render('needlogin', {
+      page: 'Need login'
+    })
   } else {
     var currentUser = req.session.user.name
     // Log current session user's name
@@ -154,14 +185,18 @@ function profile(req, res, next) {
 
     function done(err, results) {
       // Log the data got from the db
-      console.log(chalk.red('These are the query results: \n' + JSON.stringify(results, null, 4)))
+      // console.log(chalk.red('These are the query results: \n' + JSON.stringify(results, null, 4)))
       // log the tagline
       // console.log(chalk.blue(results[0].tagline))
       if (results[0].avatar == null) {
         // If there is no tagline
         res.render('profile', {
           user: req.session.user,
-          avatar: 'default'
+          avatar: 'default',
+          tagline: results[0].tagline,
+          series1: results[0].series1,
+          series2: results[0].series2,
+          page: 'Profile'
         })
       } else if(err) {
         // if error
@@ -173,7 +208,8 @@ function profile(req, res, next) {
           tagline: results[0].tagline,
           avatar: results[0].avatar,
           series1: results[0].series1,
-          series2: results[0].series2
+          series2: results[0].series2,
+          page: 'Profile'
         })
       }
     }
@@ -183,19 +219,27 @@ function profile(req, res, next) {
 // Render Chatlist
 function chatlist(req, res) {
   if (req.session.user == undefined) {
-    res.status(401).render('needlogin')
+    res.status(401).render('needlogin', {
+      page: 'Need login'
+    })
   } else {
-    res.render('chatlist')
+    res.render('chatlist', {
+      page: 'Chatlist'
+    })
   }
 }
 
 // Render settings
 function settings(req, res) {
-  console.log(chalk.yellow('The requested path was settings'))
+  console.log(chalk.yellow('[Server] The requested path was settings'))
   if (req.session.user == undefined) {
-    res.status(401).render('needlogin')
+    res.status(401).render('needlogin', {
+      page: 'Need login'
+    })
   } else {
-    res.render('settings')
+    res.render('settings', {
+      page: 'Settings'
+    })
   }
 }
 
@@ -206,13 +250,32 @@ function updateAvatar(req, res, next) {
   var currentUser = req.session.user.name
   // console.log(chalk.yellow(currentUser))
   // console.log(chalk.red(`Avatar: ${avatar}`))
+
+  
+
   // Put the avatar in the database for the correct user
   db.query('UPDATE users SET avatar = ? WHERE name = ?', [avatar, currentUser], done)
   function done(err, results) {
     if(err){
       next(err)
     } else {
-      res.redirect('/')
+      res.redirect('profile')
+    }
+  }
+}
+
+// Update Tagline
+function updateTagline(req, res, next) {
+  // Get the tagline and the current user
+  var tagline = req.body.tagline
+  var currentUser = req.session.user.name
+
+  db.query('UPDATE users SET tagline = ? WHERE name = ?', [tagline, currentUser], done)
+  function done(err, results) {
+    if(err) {
+      next(err)
+    } else {
+      res.redirect('profile')
     }
   }
 }
@@ -223,8 +286,98 @@ function render(req, res) {
   var reqPath = req.path.replace('/', '').replace('.html', '')
   // try to render the requested url
   console.log(chalk.yellow('[Server] The req url was: ' + reqPath))
+  // Make the first letter of the requested path upper case from: https://stackoverflow.com/questions/1026069/how-do-i-make-the-first-letter-of-a-string-uppercase-in-javascript
+  var uppercaseReqPath = reqPath.charAt(0).toUpperCase() + reqPath.slice(1)
   // render page
-  res.render(reqPath)
+  res.render(reqPath, {
+    page: uppercaseReqPath
+  })
+}
+
+// Add currently watching series
+function seriesChosen(req, res) {
+  // get current user
+  var currentUser = req.session.user.name
+  // get the contents of the form and put them in variables
+  var westworld = req.body.westworld
+  var blackMirror = req.body.blackMirror
+  var poi = req.body.poi
+  var arrow = req.body.arrow
+  var flash = req.body.flash
+  var breakingBad = req.body.breakingBad
+  // Put the on or undefineds in an array
+  var series = [
+    westworld,
+    blackMirror,
+    poi,
+    arrow,
+    flash,
+    breakingBad
+  ]
+  const seriesList = [
+    'westworld',
+    'blackMirror',
+    'poi',
+    'arrow',
+    'flash',
+    'breakingBad'
+  ]
+  // console.log(chalk.yellow(series))
+  // console.log(chalk.red(`${westworld}\n${blackMirror}\n${poi}\n${arrow}\n${flash}\n${breakingBad}`))
+  // Create array to push selected series to
+  var seriesCount = []
+  // Push all not undefined values to the seriesCount array
+  for (let i=0; i < series.length; i++) {
+    if (series[i] == 'on') {
+      seriesCount.push(i)
+    }
+  }
+  // console.log(chalk.red(seriesCount))
+  // check if 2 series are selected
+  if (seriesCount.length < 2 || seriesCount.length >= 3) {
+    console.log('not passed')
+    // Render error
+    res.status(400).render('error', {
+      error: 'You need to select 2 series!',
+      page: 'Error!'
+    })
+    return
+  }
+  // Put the selected series in vars
+  var series1 = seriesList[seriesCount[0]]
+  console.log(chalk.yellow(series1))
+  var series2 = seriesList[seriesCount[1]]
+  console.log(chalk.yellow(series2))
+
+  db.query('UPDATE users SET series1 = ?, series2 = ? WHERE name = ?', [series1, series2, currentUser], done)
+  // check if an error ocurred, else: redirect to matchprefs
+  function done(err, data) {
+    if(err){
+      next(err)
+    } else {
+      console.log(chalk.green('Series were put in the database'))
+      res.redirect('matchprefs')
+    }
+  }
+}
+
+// Add matching preferences
+function prefsChosen(req, res) {
+  // get current user
+  var currentUser = req.session.user.name
+  // Get form data and store it in a var
+  var agePref = req.body.selectAge
+  var genderPref = req.body.gender
+  var tagline = req.body.tagline
+
+  db.query('UPDATE users SET genderpref = ?, agepref = ?, tagline = ? WHERE name = ?', [genderPref, agePref, tagline, currentUser], done)
+  function done(err, data) {
+    if(err) {
+      next(err)
+    } else {
+      res.redirect('index')
+    }
+  }
 }
 
 // register
@@ -271,6 +424,7 @@ function register(req, res) {
   }
   // hash the passwd and send the form data to the database
   bcrypt.hash(passwd, saltRounds, function(err, hash) {
+    console.log(chalk.blue(hash))
   db.query('INSERT INTO users SET ?', {
     name: name,
     email: email,
@@ -283,9 +437,12 @@ function register(req, res) {
     if(err){
       next(err)
     } else {
-      req.session.user = {name: name}
+      req.session.user = {
+        name: name,
+        email: email
+      }
       // console.log(chalk.red(JSON.stringify(req.session.user, null, 4))
-      res.redirect('/')
+      res.redirect('chooseseries')
     }
   }
 }
@@ -326,10 +483,13 @@ function login(req, res, next) {
     function onverify(match) {
       if (match) {
         // set session cookie and redirect
-        req.session.user = {name: user.name}
+        req.session.user = {
+          name: user.name,
+          email: email
+        }
         // log the session.user object
         // console.log(chalk.red(JSON.stringify(req.session.user, null, 4)))
-        res.redirect('/profile')
+        res.redirect('index')
       } else {
         // error if the password is incorrect
         res.status(401).send('Incorrect password')
@@ -344,12 +504,63 @@ function logout(req, res, next) {
     if (err) {
       next(err)
     } else {
-      res.redirect('/')
+      res.redirect('login')
     }
   })
 }
 
+// Remove account
+function remove(req, res, next) {
+  // Get the current user and email
+  var email = req.session.user.email
+  var currentUser = req.session.user.name
+  var passwd = req.body.password
+
+  if (!passwd) {
+    res.status(409).render('error', {
+      error: 'Password can not be empty!',
+      page: 'Error'
+    })
+  }
+
+  db.query('SELECT password FROM users WHERE email = ?', email, done)
+  function done(err, data) {
+    if (err) {
+      next(err)
+    } else {
+      // console.log(chalk.red(JSON.stringify(data, null, 4)))
+      console.log(data[0].password)
+      // if the email is found, get the password and check if it matches
+      bcrypt.compare(passwd, data[0].password).then(onverify, next)
+    }
+
+    function onverify(match) {
+      if (match) {
+        // If password matches delete user
+        db.query('DELETE FROM users WHERE email = ?', email, ondelete)
+
+        function ondelete(err, results) {
+          if (err) {
+            next(err)
+          } else {
+            res.redirect('welcome')
+          }
+        }
+      } else {
+        // error if the password is incorrect
+        res.status(401).render('error', {
+          error: 'Incorrect password..',
+          page: 'Error!'
+        })
+      }
+    }
+  }
+}
+
 // handle 'couldn't get ... requests'
 function notFound(req, res) {
-  res.status(404).render('error', {error: '404 Not found. We could not find this page :('})
+  res.status(404).render('error', {
+    error: '404 Not found. We could not find this page :(',
+    page: 'Error!'
+  })
 }
