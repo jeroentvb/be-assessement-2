@@ -31,38 +31,6 @@ db.connect(function(err) {
   }
 })
 
-var data = [
-  {
-    email: 'test@example.com',
-    name: 'Julia',
-    avatar: 'julia',
-    tagline: '"Bingewatching black mirror"',
-    series: [
-      'westworld',
-      'black-mirror'
-    ]
-  },
-  {
-    email: 'megan@example.com',
-    name: 'Megan',
-    avatar: 'megan',
-    tagline: 'test',
-    series: [
-      'black-mirror',
-      'westworld'
-    ]
-  },
-  {
-    email: 'joopie@example.com',
-    name: 'Joopie',
-    avatar: 'test',
-    tagline: 'Ik ben joopie',
-    series: [
-      'westworld',
-    ]
-  }
-]
-
 // Add HTTP requests
 module.exports = express()
   // .get('/createdb', createDb)
@@ -145,7 +113,7 @@ function index(req, res, next) {
       if(err) {
         next(err)
       } else {
-        console.log(chalk.red(JSON.stringify(data, null, 4)))
+        // console.log(chalk.red(JSON.stringify(data, null, 4)))
         var genderPref = data[0].genderpref
         var agePref = data[0].agepref
         // Get people from the db that match the preferences
