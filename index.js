@@ -5,7 +5,6 @@ var bodyParser = require('body-parser')
 var multer = require('multer')
 var mysql = require('mysql')
 var bcrypt = require('bcrypt')
-var jimp = require('jimp')
 var chalk = require('chalk')
 
 require('dotenv').config()
@@ -150,7 +149,7 @@ function index(req, res, next) {
         var genderPref = data[0].genderpref
         var agePref = data[0].agepref
         // Get people from the db that match the preferences
-        db.query('SELECT name, tagline, avatar, series1, series2 FROM users WHERE NOT genderpref = ? AND agepref = ? LIMIT 3', [genderPref, agePref], done)
+        db.query('SELECT name, tagline, avatar, series1, series2 FROM users WHERE NOT genderpref = ? AND agepref = ? ORDER BY RAND() LIMIT 3', [genderPref, agePref], done)
         function done(err, results) {
           if(err) {
             next(err)
@@ -250,9 +249,6 @@ function updateAvatar(req, res, next) {
   var currentUser = req.session.user.name
   // console.log(chalk.yellow(currentUser))
   // console.log(chalk.red(`Avatar: ${avatar}`))
-
-  
-
   // Put the avatar in the database for the correct user
   db.query('UPDATE users SET avatar = ? WHERE name = ?', [avatar, currentUser], done)
   function done(err, results) {

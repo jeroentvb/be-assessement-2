@@ -31,11 +31,13 @@
   <article class="personCard">
     <div class="nameAndAvatar">
       <h2><%= users[i].name %></h2>
+      <div>
       <% if (users[i].avatar == null) { %>
       <img src="images/placeholder.jpg" alt="profile image">
       <% } else { %>
       <img src="upload/<%= users[i].avatar %>" alt="profile image">
       <% } %>
+      </div>
     </div>
     <% if (users[i].tagline != 'No tagline set') { %>
     <h4><%= users[i].tagline %></h3>
