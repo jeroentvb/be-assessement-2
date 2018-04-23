@@ -48,7 +48,7 @@ table {
 /******************/
 /* General styles */
 /******************/
-nav, article, article.chat, section a.btn, section form#login fieldset input[type=submit], section form#matchPrefs fieldset .btn, .settingsForm input[type=submit], #submitSeries, form#matchPrefs .skip-btn {
+nav, article, article.chat, section a.btn, section form#login fieldset input[type=submit], section form#login fieldset button, section form#matchPrefs fieldset .btn, .settingsForm input[type=submit], #submitSeries, form#matchPrefs .skip-btn {
   box-shadow: 0 0.1rem grey; }
 
 body {
@@ -252,6 +252,17 @@ section {
       border-radius: 1em;
       height: 3.5em;
       margin-top: 1.5em; }
+    section form#login fieldset p {
+      margin-bottom: 1em;
+      text-decoration: underline; }
+    section form#login fieldset button {
+      background-color: #FFF;
+      border-radius: 1em;
+      margin: 1em 0 2em 0;
+      padding: 1em;
+      text-align: center;
+      text-decoration: none;
+      color: black; }
   section form#login h3 {
     margin-top: 1em; }
   section form#login a {

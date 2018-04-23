@@ -1,3 +1,9 @@
+// Sources used:
+// Backend lecture 4: https://docs.google.com/presentation/d/1PfEaV-jQdqKWByca9txp38yD8LWIDEWZzldNYBMwUNI/edit#slide=id.g3230fb1b6e_0_806
+// Backend lecture 5: https://docs.google.com/presentation/d/1QVPTtENQ8d6td9ioNZHnbSoiilUZdsZ8n_F5naxw_Rw/edit#slide=id.g32339aa0a1_0_1186
+// Backend lecture 6: https://docs.google.com/presentation/d/1BHMqO9UV5ePt29n8cnjaznvye8Gu_HrdzhzC3h5rgOI/edit#slide=id.g344fb1f29c_0_483
+// Using mysql with nodejs: https://www.youtube.com/watch?v=EN6Dx22cPRI
+
 // Require everything needed
 var express = require('express')
 var session = require('express-session')
@@ -30,6 +36,9 @@ db.connect(function(err) {
     console.log(chalk.green('[MySql] connection established..'))
   }
 })
+
+// port to listen on
+const port = 3000
 
 // Add HTTP requests
 module.exports = express()
@@ -64,9 +73,10 @@ module.exports = express()
   .get('/login', render)
   .post('/log-in', login)
   .get('/log-out', logout)
+  .get('/xhr', xhr)
 
   .use(notFound)
-  .listen(3000, () => console.log(chalk.green('[Server] listening on port 3000...')))
+  .listen(port, () => console.log(chalk.green(`[Server] listening on port ${port}...`)))
 
 // // create db
 // function createDb(req, res) {
@@ -517,6 +527,19 @@ function remove(req, res, next) {
           page: 'Error!'
         })
       }
+    }
+  }
+}
+
+//xmlhttprequest
+function xhr(req, res, next) {
+  db.query('SELECT email FROM users', done)
+  function done(err, data) {
+    if(err) {
+      next(err)
+    } else {
+      res.send(data)
+      console.log(chalk.red(JSON.stringify(data, null, 4)))
     }
   }
 }

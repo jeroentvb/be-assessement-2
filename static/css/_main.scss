@@ -129,6 +129,22 @@ section {
         margin-top: 1.5em;
         @extend %primary-shadow;
       }
+
+      p {
+        margin-bottom: 1em;
+        text-decoration: underline;
+      }
+
+      button {
+        background-color: $primary-color;
+        @extend %primary-shadow;
+        border-radius: 1em;
+        margin: 1em 0 2em 0;
+        padding: 1em;
+        text-align: center;
+        text-decoration: none;
+        color: black;
+      }
     }
 
     h3 {
