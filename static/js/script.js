@@ -17,6 +17,13 @@ if (document.getElementById('hamburgerMenu') !== null) {
 
   menuBtn.addEventListener('click', showMenu)
   closeMenu.addEventListener('click', hideMenu)
+} else {
+  var menuBtn = document.querySelector('#menuBtn')
+  var chatlistIcon = document.querySelector('#chatlistIcon')
+  var nav = document.querySelector('nav')
+  menuBtn.style.display = "none"
+  chatlistIcon.style.display = "none"
+  nav.style.padding = '0.8em 0'
 }
 
 // Like/dislike buttons
