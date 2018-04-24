@@ -216,7 +216,7 @@ function chatlist(req, res) {
           if(err) {
             next(err)
           } else {
-            console.log(chalk.blue(JSON.stringify(results, null, 4)))
+            // console.log(chalk.blue(JSON.stringify(results, null, 4)))
             res.render('chatlist', {
               users: results,
               page: 'Chatlist'
