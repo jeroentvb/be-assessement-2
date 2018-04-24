@@ -200,9 +200,31 @@ function chatlist(req, res) {
       page: 'Need login'
     })
   } else {
-    res.render('chatlist', {
-      page: 'Chatlist'
-    })
+    // Get user's email
+    var currentUser = req.session.user.email
+    db.query('SELECT genderpref, agepref FROM users WHERE email = ?', currentUser, gotPrefs)
+    function gotPrefs(err, data) {
+      if(err) {
+        next(err)
+      } else {
+        // console.log(chalk.red(JSON.stringify(data, null, 4)))
+        var genderPref = data[0].genderpref
+        var agePref = data[0].agepref
+        // Get people from the db that match the preferences
+        db.query('SELECT name, avatar, tagline FROM users WHERE NOT genderpref = ? AND agepref = ? ORDER BY RAND() LIMIT 2', [genderPref, agePref], done)
+        function done(err, results) {
+          if(err) {
+            next(err)
+          } else {
+            console.log(chalk.blue(JSON.stringify(results, null, 4)))
+            res.render('chatlist', {
+              users: results,
+              page: 'Chatlist'
+            })
+          }
+        }
+      }
+    }
   }
 }
 
@@ -398,7 +420,6 @@ function register(req, res) {
   }
   // hash the passwd and send the form data to the database
   bcrypt.hash(passwd, saltRounds, function(err, hash) {
-    console.log(chalk.blue(hash))
   db.query('INSERT INTO users SET ?', {
     name: name,
     email: email,
