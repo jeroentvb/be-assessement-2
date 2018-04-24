@@ -16,11 +16,12 @@
     <h3><%= tagline %></h3>
     <% } %>
     <h2>Currently watching:</h2>
-    <div class="movieGrid">
+    <!-- Used inline css because margin-top didn't work on .updateBtn -->
+    <div class="movieGrid" style="margin-bottom: 0.5em">
       <img src="images/<%= series1 %>.jpg" alt="Currently watching image 1">
       <img src="images/<%= series2 %>.jpg" alt="Currently watching image 2">
     </div>
-    <a href="settings">Update profile</a>
+    <a href="settings" class="updateBtn">Update profile</a>
   </article>
 </main>
 
