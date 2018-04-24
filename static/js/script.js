@@ -87,6 +87,7 @@ if (path == '/register' || path == 'register.html') {
       p.innerHTML = 'You entered an incomplete e-mail adress.'
     } else {
       // Do a server request
+      // Source: https://www.youtube.com/watch?v=h0ZUpPiV1ac
       var res = new XMLHttpRequest()
       res.onreadystatechange = function() {
         // if everything is ok, process the data
@@ -96,6 +97,7 @@ if (path == '/register' || path == 'register.html') {
           for(let i=0; i < emailAdresses.length; i++) {
             if(emailAdresses[i].email == email){
               p.innerHTML = 'The e-mail adress has already been used.'
+              // Stop the loop
               break
             } else {
               p.innerHTML = 'The e-mail adress has not been used.'
@@ -107,4 +109,25 @@ if (path == '/register' || path == 'register.html') {
       res.send()
     }
   }
+  // Check if the confirm fields are the same as the actual ones
+  var submit = document.querySelector('#submit')
+
+  submit.addEventListener('click', function(event) {
+    var email = document.querySelector('#email').value
+    var confirmEmail = document.querySelector('#confirmEmail').value
+    var password = document.querySelector('#passwd').value
+    var confirmPassword = document.querySelector('#confirmPasswd').value
+    var warning = document.querySelector('#warning')
+
+    if (email == '' || confirmEmail == '' || password == '' || confirmPassword == '') {
+      event.preventDefault()
+      warning.innerHTML = 'You need to fill in all the fields.'
+    } else if (email != confirmEmail) {
+      event.preventDefault()
+      warning.innerHTML = 'Email does not match the confirmed email.'
+    } else if (password != confirmPassword) {
+      event.preventDefault()
+      warning.innerHTML = 'Password does not match the confirmed password.'
+    }
+  })
 }
