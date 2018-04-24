@@ -3,6 +3,7 @@ This is a repo for my dating website for project tech.
 It's built using the express framework for nodejs.
 
 ## How to use
+0. Make sure you have `node` and `npm` installed.
 1. Run `npm install` & `npm build`.
 2. Create a `.env` file containing the following:
 ```
