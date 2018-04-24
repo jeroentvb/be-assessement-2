@@ -1,23 +1,21 @@
 <%- include('head', {page: page}) %>
 
 <main>
+  <% for (i=0; i < users.length; i++) { %>
+
   <a href="chat.html">
     <article class="chat">
-      <img src="images/megan.jpg" alt="Profile image">
+    <% if (users[i].avatar == null) { %>
+    <img src="images/placeholder.jpg" alt="profile image">
+    <% } else { %>
+      <img src="upload/<%= users[i].avatar %>" alt="Profile image">
+      <% } %>
       <div class="chatText">
-        <h2>Megan</h2>
-        <p>Typing...</p>
+        <h2><%= users[i].name %></h2>
+        <p><%= users[i].tagline %></p>
       </div>
     </article>
   </a>
-
-  <article class="chat">
-    <img src="images/julia.jpg" alt="Profile image">
-    <div class="chatText">
-      <h2>Julia</h2>
-      <p>Yeah, I really liked that one too!</p>
-    </div>
-  </article>
-</main>
+  <% } %>
 
 <% include tail %>
