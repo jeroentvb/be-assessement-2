@@ -39,6 +39,11 @@ db.connect(function(err) {
 
 // port to listen on
 const port = 3000
+// define min and max passwd length
+const passwdLength = {
+  min: 6,
+  max: 100
+}
 
 // Add HTTP requests
 module.exports = express()
@@ -61,6 +66,7 @@ module.exports = express()
   .get('/settings' || 'settings.html', settings)
   .post('/update-avatar', upload.single('avatar'), updateAvatar)
   .post('/update-tagline', updateTagline)
+  .post('/change-password', changePassword)
   .post('/remove', remove)
   .get(/html/, render)
   .post('/', register)
@@ -276,6 +282,66 @@ function updateTagline(req, res, next) {
   }
 }
 
+// Change Password
+function changePassword(req, res, next) {
+  // get current user
+  var currentUser = req.session.user.name
+  // Get form data
+  var oldPasswd = req.body.oldPasswd
+  var newPasswd = req.body.newPasswd
+  var confirmNewPasswd = req.body.confirmNewPasswd
+  console.log('trigger!')
+
+  // check if passwd is long enough but not too long
+  if (newPasswd.length < passwdLength.min || newPasswd.length > passwdLength.max) {
+    res.status(400).render('error', {
+      page: 'Error',
+      error: `Your new password must be between ${passwdLength.min} and ${passwdLength.max} characters.`
+    })
+    return
+  }
+
+  if (newPasswd == confirmNewPasswd) {
+    db.query('SELECT password FROM users WHERE name = ?', currentUser, done)
+    function done(err, data) {
+      if(err) {
+        next(err)
+      } else {
+        var dbPasswd = data[0].password
+        // console.log(chalk.red(dbPasswd))
+        // console.log(chalk.red(JSON.stringify(data, null, 4)))
+        bcrypt.compare(oldPasswd, dbPasswd).then(onverify, next)
+        function onverify(match) {
+          if(match) {
+            bcrypt.hash(newPasswd, saltRounds, function(err, hash) {
+            db.query('UPDATE users SET password = ? WHERE name = ?', [hash, currentUser], done)
+            })
+            function done(err, results) {
+              if(err) {
+                next(err)
+              } else {
+                res.redirect('index')
+              }
+            }
+          } else {
+            res.status(409).render('error', {
+              page: 'Error',
+              error: 'Your current password does not match.'
+            })
+          }
+        }
+      }
+    }
+  } else {
+    res.status(409).render('error', {
+      error: 'Your new password does not match the confirmed password.',
+      page: 'Error'
+    })
+  }
+
+
+}
+
 // get path and render page
 function render(req, res) {
   // get the url and put it in a var
@@ -382,37 +448,11 @@ function register(req, res) {
   var name = req.body.name
   var email = req.body.email
   var passwd = req.body.password
-  // define min and max passwd length
-  var passwdLength = {
-    min: 6,
-    max: 100
-  }
   // check if everything is filled in
   if (!name || !email || !passwd) {
     res.status(400).send('Name, email or password are missing!')
     return
   }
-  // Check if email is already used
-  // db.query('SELECT email FROM users', compareEmail)
-  // function compareEmail(err, data) {
-  //   if(err) {
-  //     next(err)
-  //   } else {
-  //     console.log(chalk.red(JSON.stringify(data, null, 4)))
-  //     for (i=0; i < data.length; i++) {
-  //       if (data[i].email == email) {
-  //         console.log(chalk.red(`${data[i].email} matches ${email}`))
-  //         // render('error', {error: 'The email adress has already been used'})
-  //       }
-  //     }
-  //   }
-  // }
-  // if (email == dbEmail) {
-  //   res.status(409).render('error', {error: 'The email adress has already been used'})
-  //   return
-  // }
-
-
   // check if passwd is long enough but not too long
   if (passwd.length < passwdLength.min || passwd.length > passwdLength.max) {
     res.status(400).send(`Your password must be between ${passwdLength.min} and ${passwdLength.max} characters.`)

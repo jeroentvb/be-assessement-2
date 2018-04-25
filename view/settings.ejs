@@ -16,6 +16,17 @@
       <input type="submit">
     </form>
   </article>
+
+  <article>
+    <form action="/change-password" method="post" class="settingsForm">
+      <label for="oldPasswd">Change password</label>
+      <input type="password" name="oldPasswd" id="oldPasswd" placeholder="Old password">
+      <input type="password" name="newPasswd" id="newPasswd" placeholder="New password">
+      <input type="password" name="confirmNewPasswd" id="confirmNewPasswd" placeholder="Confirm new password">
+      <input type="submit">
+    </form>
+  </article>
+
   <article>
     <form action="/remove" method="post" class="settingsForm">
       <label for="deleteAccount">Delete Account</label>
