@@ -4,6 +4,7 @@
 
 nav {
   background-color: $primary-color;
+  color: #FFF;
   position: fixed;
   width: 100%;
   top: 0;
@@ -68,7 +69,7 @@ nav {
 }
 
 nav #hamburgerMenu {
-  background-color: rgba(255,255,255,0.85);
+  background-color: rgba(87,165,255,0.85);
   border-left: 0.1em solid black;
   padding-bottom: 100%;
   position: fixed;
@@ -79,6 +80,10 @@ nav #hamburgerMenu {
   margin-right: -10em;
   transition: 0.2s;
   overflow: hidden;
+
+  a {
+    color: #FFF;
+  }
 
   ul {
     flex-direction: column;

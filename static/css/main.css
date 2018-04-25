@@ -77,7 +77,8 @@ h4 {
 /* Header */
 /**********/
 nav {
-  background-color: #FFF;
+  background-color: #3480D8;
+  color: #FFF;
   position: fixed;
   width: 100%;
   top: 0; }
@@ -115,7 +116,7 @@ nav {
   animation: hide-menu 0.2s forwards; }
 
 nav #hamburgerMenu {
-  background-color: rgba(255, 255, 255, 0.85);
+  background-color: rgba(87, 165, 255, 0.85);
   border-left: 0.1em solid black;
   padding-bottom: 100%;
   position: fixed;
@@ -125,6 +126,8 @@ nav #hamburgerMenu {
   margin-right: -10em;
   transition: 0.2s;
   overflow: hidden; }
+  nav #hamburgerMenu a {
+    color: #FFF; }
   nav #hamburgerMenu ul {
     flex-direction: column;
     margin-right: 2.5em;
@@ -233,13 +236,13 @@ section {
   section h3 {
     margin-bottom: 1em; }
   section a.btn {
-    background-color: #FFF;
+    background-color: #3480D8;
     border-radius: 1em;
     margin: 1em;
     padding: 1em;
     text-align: center;
     text-decoration: none;
-    color: black; }
+    color: #FFF; }
   section form#login fieldset {
     display: flex;
     flex-direction: column; }
@@ -248,7 +251,8 @@ section {
       width: 100%;
       font-size: 1em; }
     section form#login fieldset input[type=submit] {
-      background-color: #FFF;
+      background-color: #3480D8;
+      color: #FFF;
       border-radius: 1em;
       height: 3.5em;
       margin-top: 1.5em; }
@@ -256,13 +260,13 @@ section {
       margin-bottom: 1em;
       text-decoration: underline; }
     section form#login fieldset button {
-      background-color: #FFF;
+      background-color: #3480D8;
       border-radius: 1em;
       margin: 1em 0 2em 0;
       padding: 1em;
       text-align: center;
       text-decoration: none;
-      color: black; }
+      color: white; }
   section form#login h3 {
     margin-top: 1em; }
   section form#login a {
@@ -276,12 +280,13 @@ section {
       display: block;
       margin-top: 0.5em; }
     section form#matchPrefs fieldset .btn {
-      background-color: #FFF;
+      background-color: #3480D8;
       border-radius: 2em;
       padding: 1em;
       text-align: center;
       font-size: 1em;
-      width: 100%; }
+      width: 100%;
+      color: #FFF; }
   section form#matchPrefs fieldset#genderPref {
     display: flex;
     flex-direction: column; }
@@ -331,12 +336,13 @@ section {
   color: #FFF; }
 
 #submitSeries {
-  background-color: #FFF;
+  background-color: #3480D8;
   border-radius: 2em;
   padding: 1em;
   text-align: center;
   font-size: 1em;
-  width: 100%; }
+  width: 100%;
+  color: #FFF; }
 
 form#matchPrefs input[type=radio] {
   margin-bottom: 1.2em; }

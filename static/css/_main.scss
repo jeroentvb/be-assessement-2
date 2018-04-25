@@ -108,7 +108,7 @@ section {
     padding: 1em;
     text-align: center;
     text-decoration: none;
-    color: black;
+    color: #FFF;
   }
 
   form#login {
@@ -124,6 +124,7 @@ section {
 
       input[type=submit] {
         background-color: $primary-color;
+        color: #FFF;
         border-radius: 1em;
         height: 3.5em;
         margin-top: 1.5em;
@@ -143,7 +144,7 @@ section {
         padding: 1em;
         text-align: center;
         text-decoration: none;
-        color: black;
+        color: white;
       }
     }
 
@@ -178,6 +179,7 @@ section {
         text-align: center;
         font-size: 1em;
         width: 100%;
+        color: #FFF;
       }
     }
 
@@ -238,6 +240,7 @@ section {
   text-align: center;
   font-size: 1em;
   width: 100%;
+  color: #FFF;
 }
 
 form#matchPrefs {
