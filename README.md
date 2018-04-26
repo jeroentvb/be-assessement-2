@@ -22,8 +22,8 @@ SESSION_SECRET= YOUR express sessions 'SECRET'
 9. Uncomment the `addUsr` function, as well as `.get('/addusr', addUsr)`.
 10. Go to `localhost:3000/addusr`. If everything is configured correctly you will see __'Table created'__ in the console. The database has now been set up.
 11. Comment (or remove) the `addUsr` function as well as `.get('/addusr', addUsr)`.
-12. You now need to populate the database. You can do this using `localhost:3000/register` or do it manually.
-Changes to a profile can be made from `/settings`
+12. You now need to populate the database. You can do this using `localhost:3000/register` or do it manually in the database.
+Changes to a profile can be made from `localhost:3000/settings` or directly in the database.
 
 ### Notes
 * A lot of `console.log`'s have been commented because they are only useful for debugging.
