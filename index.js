@@ -47,6 +47,7 @@ const passwdLength = {
 
 // Add HTTP requests
 module.exports = express()
+  // // These 2 are used for setting up the database
   // .get('/createdb', createDb)
   // .get('/addusr', addUsr)
 
@@ -83,6 +84,7 @@ module.exports = express()
   .use(notFound)
   .listen(port, () => console.log(chalk.green(`[Server] listening on port ${port}...`)))
 
+// // The 2 commented functions are used for setting up the database
 // // create db
 // function createDb(req, res) {
 //   var sql = 'CREATE DATABASE datingsite'
