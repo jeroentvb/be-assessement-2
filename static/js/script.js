@@ -36,8 +36,10 @@ if (document.getElementsByClassName('likeDislikeButtons')[0] !== undefined) {
   // Dislike button
   for (var i=0; i < dislikeBtn.length; i++) {
     var dislike = function () {
-      this.parentNode.parentNode.parentNode.remove()
-      checkArticles()
+      if (confirm('Do you really want to dislike this person?')) {
+        this.parentNode.parentNode.parentNode.remove()
+        checkArticles()
+      }
     }
     dislikeBtn[i].addEventListener('click', dislike)
   }
@@ -74,7 +76,7 @@ if (document.getElementById('backBtn') !== null) {
 // check Email
 var path = window.location.pathname
 // Check if the register page is loaded, otherwise don't use this bit of code
-if (path == '/register' || path == 'register.html') {
+if (path == '/register' || path == '/register.html') {
   var button = document.querySelector('#check')
   var p = document.querySelector('#emailUsed')
 
@@ -130,4 +132,12 @@ if (path == '/register' || path == 'register.html') {
       warning.innerHTML = 'Password does not match the confirmed password.'
     }
   })
+}
+
+// First time view index
+if (path == '/firstregister' || path == '/firstregister.html') {
+  window.onload = onload
+  function onload() {
+    window.alert('Welcome to WatchTogether!\nOn this page you can find 3 potential matches every day.\nIf you tap on a heart, a chat will be opened with the person in the card. We encourage you plan a date and watch a series together.')
+  }
 }
