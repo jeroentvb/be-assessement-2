@@ -1,6 +1,10 @@
 # Project tech
-This is a repo for my dating website for project tech.
-It's built using the express framework for nodejs.
+This is a my prototype for my dating website for project tech. It's called 'WatchTogether'
+It's built using the `express` framework for `nodejs`. Pages are rendered using `ejs`.
+
+Users can sign up using name, email and password; select 2 of their favorite series; select matching preferences.
+Tagline, avatar, and password can be changed (if logged in), on the settings page (`localhost:3000/settings`). An account can also be deleted from there (password verification is needed).
+Everything is stored in the database and passwords are hashed with salt.
 
 ## How to use
 0. Make sure you have `node` and `npm` installed.
