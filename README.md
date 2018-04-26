@@ -11,12 +11,19 @@ DB_HOST=localhost
 DB_USER=root
 DB_NAME=datingsite
 DB_PASSWORD= YOUR DATABASE PASSWORD
-SESSION_SECRET= YOUR 'SECRET' express sessions
+SESSION_SECRET= YOUR express sessions 'SECRET'
 ```
-3. Uncomment the `createDb` & `addUsr` functions, as well as `.get('/createdb', createDb)` & `.get('/addusr', addUsr)`
-4. Host a mysql server (I used xampp on windows)
-5. Run the server by navigating to the folder in the command line and either running `nodemon` or `npm start` (I reccommend nodemon as it restarts the server after saving a change in index.js)
-5. Open your browser and go to `localhost:3000/createdb`. If everything is configured correctly you will see __'Database created'__ in the console.
-6. Go to `localhost:3000/addusr`. If everything is configured correctly you will see __'Table created'__ in the console. The database has now been set up.
-7. Comment (or remove) the`createDb` & `addUsr` functions as well as `.get('/createdb', createDb)` & `.get('/addusr', addUsr)`.
-8. You now need to populate the database. You can do this using `localhost:3000/register` or do it manually.
+3. Uncomment the `createDb` function, as well as `.get('/createdb', createDb)`.
+4. Comment `database: process.env.DB_NAME`.
+5. Host a mysql server (I used xampp on windows)
+6. Run the server by navigating to the folder in the command line and either running `nodemon` or `npm start` (I reccommend nodemon as it restarts the server after saving a change in server.js)
+7. Open your browser and go to `localhost:3000/createdb`. If everything is configured correctly you will see __'Database created'__ in the console.
+8. Comment (or remove) the `createDb` function, as well as `.get('/createdb', createDb)` and uncomment `database: process.env.DB_NAME`.
+9. Uncomment the `addUsr` function, as well as `.get('/addusr', addUsr)`.
+10. Go to `localhost:3000/addusr`. If everything is configured correctly you will see __'Table created'__ in the console. The database has now been set up.
+11. Comment (or remove) the `addUsr` function as well as `.get('/addusr', addUsr)`.
+12. You now need to populate the database. You can do this using `localhost:3000/register` or do it manually.
+Changes to a profile can be made from `/settings`
+
+### Notes
+* A lot of `console.log`'s have been commented because they are only useful for debugging.
