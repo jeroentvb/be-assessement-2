@@ -19,8 +19,8 @@ SESSION_SECRET= YOUR express sessions 'SECRET'
 ```
 3. Uncomment the `createDb` function, as well as `.get('/createdb', createDb)`.
 4. Comment `database: process.env.DB_NAME`.
-5. Host a mysql server (I used xampp on windows)
-6. Run the server by navigating to the folder in the command line and either running `nodemon` or `npm start` (I reccommend nodemon as it restarts the server after saving a change in server.js)
+5. Host a mysql server (I used xampp on windows).
+6. Run the server by navigating to the folder in the command line and either running `nodemon` or `npm start` (I reccommend nodemon as it restarts the server after saving a change in server.js).
 7. Open your browser and go to `localhost:3000/createdb`. If everything is configured correctly you will see __'Database created'__ in the console.
 8. Comment (or remove) the `createDb` function, as well as `.get('/createdb', createDb)` and uncomment `database: process.env.DB_NAME`.
 9. Uncomment the `addUsr` function, as well as `.get('/addusr', addUsr)`.
