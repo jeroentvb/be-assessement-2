@@ -62,6 +62,7 @@ module.exports = express()
   }))
   .get('/', index)
   .get('/index' || 'index.html', index)
+  .get('/firstregister', firstRegister)
   .get('/profile' || 'profile.html', profile)
   .get('/chatlist' || 'chatlist.html', chatlist)
   .get('/settings' || 'settings.html', settings)
@@ -71,6 +72,7 @@ module.exports = express()
   .post('/remove', remove)
   .get('/register', render)
   .post('/', register)
+  .get('/noaccount', render)
   .get('/welcome', render)
   .get('/chooseseries', render)
   .post('/seriesChosen', seriesChosen)
@@ -114,7 +116,7 @@ module.exports = express()
 // render index
 function index(req, res, next) {
   // log req.path
-  console.log(chalk.yellow('[Server] Requested path was ' + req.path))
+  console.log(chalk.yellow(`[Server] Requested path was ${req.path}`))
   // Show error if the user is not loggen in
   if (req.session.user == undefined) {
     res.status(401).render('needlogin', {
@@ -145,6 +147,24 @@ function index(req, res, next) {
           }
         }
       }
+    }
+  }
+}
+
+// First time loading index
+function firstRegister(req, res, next) {
+// log req.path
+console.log(chalk.yellow(`[Server] Requested path was ${req.path}`))
+
+// Get people from the db that match the preferences
+db.query('SELECT name, tagline, avatar, series1, series2 FROM users ORDER BY RAND() LIMIT 3', done)
+  function done(err, data) {
+    if (err) {
+      next(err)
+    } else {
+      res.render('firstregister', {
+        users: data
+      })
     }
   }
 }
@@ -424,7 +444,7 @@ function prefsChosen(req, res) {
     if (err) {
       next(err)
     } else {
-      res.redirect('index')
+      res.redirect('firstregister')
     }
   }
 }

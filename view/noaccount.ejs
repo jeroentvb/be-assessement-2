@@ -1,0 +1,74 @@
+<%- include('head2', {page: page}) %>
+
+  <main>
+    <section>
+      <form action="/firstregister" id="login">
+        <fieldset>
+          <label for="name">Name</label>
+          <input type="text" id="name" required name="name">
+        </fieldset>
+
+        <h3>Select 2 series</h3>
+        <fieldset>
+          <div class="movieGrid">
+            <div class="checkboxImg">
+              <input type="checkbox" id="westworld" class="checkbox" name="westworld" value="westworld">
+              <label for="westworld" class="checkboxLabel"><img src="images/westworld.jpg" alt="Westworld"></label>
+            </div>
+
+            <div class="checkboxImg">
+              <input type="checkbox" id="blackMirror" class="checkbox" name="blackMirror" value="blackMirror">
+              <label for="blackMirror" class="checkboxLabel"><img src="images/blackMirror.jpg" alt="Black Mirror"></label>
+            </div>
+
+            <div class="checkboxImg">
+              <input type="checkbox" id="poi" class="checkbox" name="poi" value="poi">
+              <label for="poi" class="checkboxLabel"><img src="images/poi.jpg" alt="Person if Interest"></label>
+            </div>
+
+            <div class="checkboxImg">
+              <input type="checkbox" id="arrow" class="checkbox" name="arrow" value="arrow">
+              <label for="arrow" class="checkboxLabel"><img src="images/arrow.jpg" alt="Arrow"></label>
+            </div>
+
+            <div class="checkboxImg">
+              <input type="checkbox" id="flash" class="checkbox" name="flash" value="flash">
+              <label for="flash" class="checkboxLabel"><img src="images/flash.jpg" alt="Flash"></label>
+            </div>
+
+            <div class="checkboxImg">
+              <input type="checkbox" id="breakingBad" class="checkbox" name="breakingBad" value="breakingBad">
+              <label for="breakingBad" class="checkboxLabel"><img src="images/breakingBad.jpg" alt="Breaking bad"></label>
+            </div>
+          </div>
+        </fieldset>
+
+        <h3>Matching preferences</h3>
+        <fieldset>
+          <h4>Select preferred age</h4>
+          <select name="selectAge" id="selectAge" required>
+            <option value="18 - 22">18 - 22</option>
+            <option value="23 - 27">23 - 27</option>
+            <option value="27 - 30">27 - 30</option>
+          </select>
+          </fieldset>
+
+          <fieldset id="genderPref">
+          <h4>Interested in:</h4>
+          <label for="men">Men</label>
+          <input type="radio" id="men" name="gender" value="men">
+
+          <label for="woman">Woman</label>
+          <input type="radio" id="woman" name="gender" value="woman">
+
+          <label for="both">Both</label>
+          <input type="radio" id="both" name="gender" value="both">
+
+          <input type="submit" id="submit">
+        </fieldset>
+
+      </form>
+    </section>
+  </main>
+
+<% include tail %>
