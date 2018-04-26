@@ -30,7 +30,7 @@ var db = mysql.createConnection({
 });
 // connect to db
 db.connect(function(err) {
-  if(err){
+  if (err) {
     throw err;
   } else {
     console.log(chalk.green('[MySql] connection established..'))
@@ -68,19 +68,18 @@ module.exports = express()
   .post('/update-tagline', updateTagline)
   .post('/change-password', changePassword)
   .post('/remove', remove)
-  .get(/html/, render)
+  .get('/register', render)
   .post('/', register)
   .get('/welcome', render)
-  .get('/register', render)
-  .post('/seriesChosen', seriesChosen)
   .get('/chooseseries', render)
-  .post('/prefsChosen', prefsChosen)
+  .post('/seriesChosen', seriesChosen)
   .get('/matchprefs', render)
+  .post('/prefsChosen', prefsChosen)
   .get('/login', render)
   .post('/log-in', login)
   .get('/log-out', logout)
   .get('/xhr', xhr)
-
+  .get(/html/, render)
   .use(notFound)
   .listen(port, () => console.log(chalk.green(`[Server] listening on port ${port}...`)))
 
@@ -97,7 +96,7 @@ module.exports = express()
 //   })
 // }
 
-// // create create users table
+// // create users table in db
 // function addUsr(req, res) {
 //   var sql = 'CREATE TABLE IF NOT EXISTS users(id int NOT NULL AUTO_INCREMENT, email VARCHAR(255), password VARCHAR(255), name VARCHAR(255), tagline VARCHAR(255), PRIMARY KEY (id))'
 //   db.query(sql, function(err, result) {
@@ -126,7 +125,7 @@ function index(req, res, next) {
     // Get matchingpreferences from the db
     db.query('SELECT genderpref, agepref FROM users WHERE email = ?', currentUser, gotPrefs)
     function gotPrefs(err, data) {
-      if(err) {
+      if (err) {
         next(err)
       } else {
         // console.log(chalk.red(JSON.stringify(data, null, 4)))
@@ -135,7 +134,7 @@ function index(req, res, next) {
         // Get people from the db that match the preferences
         db.query('SELECT name, tagline, avatar, series1, series2 FROM users WHERE NOT genderpref = ? AND agepref = ? ORDER BY RAND() LIMIT 3', [genderPref, agePref], done)
         function done(err, results) {
-          if(err) {
+          if (err) {
             next(err)
           } else {
             res.render('index', {
@@ -161,18 +160,12 @@ function profile(req, res, next) {
     var currentUser = req.session.user.name
     // Log current session user's name
     // console.log(chalk.blue(`the current user is ${currentUser}`))
-
-    // db.query('SELECT tagline FROM users WHERE name = ?', currentUser, done)
     db.query('SELECT tagline, avatar, series1, series2 FROM users WHERE name = ?', currentUser, done)
-
-
     function done(err, results) {
-      // Log the data got from the db
-      // console.log(chalk.red('These are the query results: \n' + JSON.stringify(results, null, 4)))
-      // log the tagline
-      // console.log(chalk.blue(results[0].tagline))
-      if (results[0].avatar == null) {
-        // If there is no tagline
+      if (err) {
+        next(err)
+      } else if (results[0].avatar == null) {
+        // If there is no avatar
         res.render('profile', {
           user: req.session.user,
           avatar: 'default',
@@ -181,9 +174,6 @@ function profile(req, res, next) {
           series2: results[0].series2,
           page: 'Profile'
         })
-      } else if(err) {
-        // if error
-        next(err)
       } else {
         // if everything is found
         res.render('profile', {
@@ -201,6 +191,7 @@ function profile(req, res, next) {
 
 // Render Chatlist
 function chatlist(req, res) {
+  console.log(chalk.yellow('[Server] The requested path was chatlist'))
   if (req.session.user == undefined) {
     res.status(401).render('needlogin', {
       page: 'Need login'
@@ -210,7 +201,7 @@ function chatlist(req, res) {
     var currentUser = req.session.user.email
     db.query('SELECT genderpref, agepref FROM users WHERE email = ?', currentUser, gotPrefs)
     function gotPrefs(err, data) {
-      if(err) {
+      if (err) {
         next(err)
       } else {
         // console.log(chalk.red(JSON.stringify(data, null, 4)))
@@ -219,7 +210,7 @@ function chatlist(req, res) {
         // Get people from the db that match the preferences
         db.query('SELECT name, avatar, tagline FROM users WHERE NOT genderpref = ? AND agepref = ? ORDER BY RAND() LIMIT 2', [genderPref, agePref], done)
         function done(err, results) {
-          if(err) {
+          if (err) {
             next(err)
           } else {
             // console.log(chalk.blue(JSON.stringify(results, null, 4)))
@@ -254,11 +245,10 @@ function updateAvatar(req, res, next) {
   var avatar = req.file ? req.file.filename : null
   var currentUser = req.session.user.name
   // console.log(chalk.yellow(currentUser))
-  // console.log(chalk.red(`Avatar: ${avatar}`))
   // Put the avatar in the database for the correct user
   db.query('UPDATE users SET avatar = ? WHERE name = ?', [avatar, currentUser], done)
   function done(err, results) {
-    if(err){
+    if (err){
       next(err)
     } else {
       res.redirect('profile')
@@ -274,7 +264,7 @@ function updateTagline(req, res, next) {
 
   db.query('UPDATE users SET tagline = ? WHERE name = ?', [tagline, currentUser], done)
   function done(err, results) {
-    if(err) {
+    if (err) {
       next(err)
     } else {
       res.redirect('profile')
@@ -290,7 +280,6 @@ function changePassword(req, res, next) {
   var oldPasswd = req.body.oldPasswd
   var newPasswd = req.body.newPasswd
   var confirmNewPasswd = req.body.confirmNewPasswd
-  console.log('trigger!')
 
   // check if passwd is long enough but not too long
   if (newPasswd.length < passwdLength.min || newPasswd.length > passwdLength.max) {
@@ -304,20 +293,18 @@ function changePassword(req, res, next) {
   if (newPasswd == confirmNewPasswd) {
     db.query('SELECT password FROM users WHERE name = ?', currentUser, done)
     function done(err, data) {
-      if(err) {
+      if (err) {
         next(err)
       } else {
         var dbPasswd = data[0].password
-        // console.log(chalk.red(dbPasswd))
-        // console.log(chalk.red(JSON.stringify(data, null, 4)))
         bcrypt.compare(oldPasswd, dbPasswd).then(onverify, next)
         function onverify(match) {
-          if(match) {
+          if (match) {
             bcrypt.hash(newPasswd, saltRounds, function(err, hash) {
             db.query('UPDATE users SET password = ? WHERE name = ?', [hash, currentUser], done)
             })
             function done(err, results) {
-              if(err) {
+              if (err) {
                 next(err)
               } else {
                 res.redirect('index')
@@ -338,8 +325,6 @@ function changePassword(req, res, next) {
       page: 'Error'
     })
   }
-
-
 }
 
 // get path and render page
@@ -358,6 +343,7 @@ function render(req, res) {
 
 // Add currently watching series
 function seriesChosen(req, res) {
+  // I know this function can me made a lot smaller by using the value of the html tag. But it works like this and I don't want to break it.
   // get current user
   var currentUser = req.session.user.name
   // get the contents of the form and put them in variables
@@ -397,7 +383,6 @@ function seriesChosen(req, res) {
   // console.log(chalk.red(seriesCount))
   // check if 2 series are selected
   if (seriesCount.length < 2 || seriesCount.length >= 3) {
-    console.log('not passed')
     // Render error
     res.status(400).render('error', {
       error: 'You need to select 2 series!',
@@ -414,10 +399,10 @@ function seriesChosen(req, res) {
   db.query('UPDATE users SET series1 = ?, series2 = ? WHERE name = ?', [series1, series2, currentUser], done)
   // check if an error ocurred, else: redirect to matchprefs
   function done(err, data) {
-    if(err){
+    if (err){
       next(err)
     } else {
-      console.log(chalk.green('Series were put in the database'))
+      // console.log(chalk.green('Series were put in the database'))
       res.redirect('matchprefs')
     }
   }
@@ -434,7 +419,7 @@ function prefsChosen(req, res) {
 
   db.query('UPDATE users SET genderpref = ?, agepref = ?, tagline = ? WHERE name = ?', [genderPref, agePref, tagline, currentUser], done)
   function done(err, data) {
-    if(err) {
+    if (err) {
       next(err)
     } else {
       res.redirect('index')
@@ -469,7 +454,7 @@ function register(req, res) {
   })
   // check if an error ocurred, else: redirect to /
   function done(err, data) {
-    if(err){
+    if (err){
       next(err)
     } else {
       req.session.user = {
@@ -568,12 +553,10 @@ function remove(req, res, next) {
       // if the email is found, get the password and check if it matches
       bcrypt.compare(passwd, data[0].password).then(onverify, next)
     }
-
     function onverify(match) {
       if (match) {
         // If password matches delete user
         db.query('DELETE FROM users WHERE email = ?', email, ondelete)
-
         function ondelete(err, results) {
           if (err) {
             next(err)
@@ -600,7 +583,7 @@ function xhr(req, res, next) {
       next(err)
     } else {
       res.send(data)
-      console.log(chalk.red(JSON.stringify(data, null, 4)))
+      // console.log(chalk.red(JSON.stringify(data, null, 4)))
     }
   }
 }
