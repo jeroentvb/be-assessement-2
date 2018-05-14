@@ -116,7 +116,7 @@ nav {
   animation: hide-menu 0.2s forwards; }
 
 nav #hamburgerMenu {
-  background-color: rgba(87, 165, 255, 0.85);
+  background-color: rgba(87, 165, 255, 0.9);
   border-left: 0.1em solid black;
   padding-bottom: 100%;
   position: fixed;
