@@ -7,7 +7,7 @@ Tagline, avatar, and password can be changed (if logged in), on the settings pag
 Everything is stored in the database and passwords are hashed with salt.
 
 ## How to use
-0. Make sure you have `node` and `npm` installed.
+0. Make sure you have [`node`](https://nodejs.org/en/) and `npm` installed.
 1. Run `npm install` & `npm build`.
 2. Create a `.env` file containing the following:
 ```
