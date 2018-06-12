@@ -31,3 +31,14 @@ Changes to a profile can be made from `localhost:3000/settings` or directly in t
 
 ### Notes
 * A lot of `console.log`'s have been commented because they are only useful for debugging.
+
+## Process
+I started looking up tutorials on how to create a node server with express and mysql. After a got the hang of that I started looking into using ejs to create templates. Then I started looking into creating register and login forms.
+After all the basic features had been implemented I started adding more, and learning more about nodejs in the process. The main features built with nodejs, express and some more packages are:
+* Sign up
+* Log in
+* Stay logged in during a session
+* Upload a profile picture
+* Set a 'tagline'
+* Change password
+* Delete account

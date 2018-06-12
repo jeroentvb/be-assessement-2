@@ -354,7 +354,7 @@ function render(req, res) {
   // get the url and put it in a var
   var reqPath = req.path.replace('/', '').replace('.html', '')
   // try to render the requested url
-  console.log(chalk.yellow('[Server] The req url was: ' + reqPath))
+  console.log(chalk.yellow(`[Server] The requested path was ${reqPath}`))
   // Make the first letter of the requested path upper case from: https://stackoverflow.com/questions/1026069/how-do-i-make-the-first-letter-of-a-string-uppercase-in-javascript
   var uppercaseReqPath = reqPath.charAt(0).toUpperCase() + reqPath.slice(1)
   // render page
