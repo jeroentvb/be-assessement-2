@@ -29,12 +29,44 @@
 }
 
 @media (min-width: 1200px) {
-  main {
+  main.col-4 {
+    grid-template-columns: repeat(4, auto);
+    grid-template-rows: repeat(1, auto);
+
+    section {
+      grid-column: 2 / 4;
+    }
+
+    article:nth-child(1) {
+      grid-column: 1 / 1;
+    }
+
+    article:nth-child(2) {
+      grid-column: 2 / 2;
+    }
+
+    article:nth-child(3) {
+      grid-column: 3 / 3;
+    }
+
+    article:nth-child(-n+3) {
+      grid-row: 1 / 1;
+    }
+
+    a {
+      article.chat {
+        grid-column: 2 / 2;
+      }
+    }
+  }
+
+  main.col-3 {
     grid-template-columns: repeat(3, auto);
     grid-template-rows: repeat(1, auto);
 
     section {
       grid-column: 2 / 2;
+      // text-align: center;
     }
 
     article.profile {
@@ -64,6 +96,38 @@
       }
     }
   }
+
+  main#center-content {
+    grid-template-columns: auto 50% auto;
+  }
+
+  main.col-2 {
+    grid-template-columns: repeat(2, auto);
+    grid-template-rows: repeat(1, auto);
+
+    section {
+      grid-column: 2 / 2;
+    }
+
+    article.personCard:nth-child(1) {
+      grid-column: 1 / 1;
+    }
+
+    article.personCard:nth-child(2) {
+      grid-column: 2 / 2;
+    }
+
+    article.personCard:nth-child(-n+3) {
+      grid-row: 1 / 1;
+    }
+
+    a {
+      article.chat {
+        grid-column: 2 / 2;
+      }
+    }
+  }
+
 }
 
 @media (min-width: 1400px) {

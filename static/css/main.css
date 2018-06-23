@@ -384,23 +384,56 @@ form#matchPrefs .skip-btn {
     main article.personCard:nth-child(n+3) {
       grid-row: 2 / 2; } }
 @media (min-width: 1200px) {
-  main {
+  main.col-4 {
+    grid-template-columns: repeat(4, auto);
+    grid-template-rows: repeat(1, auto); }
+    main.col-4 section {
+      grid-column: 2 / 4; }
+    main.col-4 article:nth-child(1) {
+      grid-column: 1 / 1; }
+    main.col-4 article:nth-child(2) {
+      grid-column: 2 / 2; }
+    main.col-4 article:nth-child(3) {
+      grid-column: 3 / 3; }
+    main.col-4 article:nth-child(-n+3) {
+      grid-row: 1 / 1; }
+    main.col-4 a article.chat {
+      grid-column: 2 / 2; }
+
+  main.col-3 {
     grid-template-columns: repeat(3, auto);
     grid-template-rows: repeat(1, auto); }
-    main section {
+    main.col-3 section {
       grid-column: 2 / 2; }
-    main article.profile {
+    main.col-3 article.profile {
       grid-column: 2 / 2;
       margin: 0 10em; }
-    main article.personCard:nth-child(1) {
+    main.col-3 article.personCard:nth-child(1) {
       grid-column: 1 / 1; }
-    main article.personCard:nth-child(2) {
+    main.col-3 article.personCard:nth-child(2) {
       grid-column: 2 / 2; }
-    main article.personCard:nth-child(3) {
+    main.col-3 article.personCard:nth-child(3) {
       grid-column: 3 / 3; }
-    main article.personCard:nth-child(-n+3) {
+    main.col-3 article.personCard:nth-child(-n+3) {
       grid-row: 1 / 1; }
-    main a article.chat {
+    main.col-3 a article.chat {
+      grid-column: 2 / 2; }
+
+  main#center-content {
+    grid-template-columns: auto 50% auto; }
+
+  main.col-2 {
+    grid-template-columns: repeat(2, auto);
+    grid-template-rows: repeat(1, auto); }
+    main.col-2 section {
+      grid-column: 2 / 2; }
+    main.col-2 article.personCard:nth-child(1) {
+      grid-column: 1 / 1; }
+    main.col-2 article.personCard:nth-child(2) {
+      grid-column: 2 / 2; }
+    main.col-2 article.personCard:nth-child(-n+3) {
+      grid-row: 1 / 1; }
+    main.col-2 a article.chat {
       grid-column: 2 / 2; } }
 @media (min-width: 1400px) {
   main {
