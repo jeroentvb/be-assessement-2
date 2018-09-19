@@ -1,3 +1,5 @@
+#### Please note: this is a school project and my first attempt at creating something with node.js
+
 # Project tech
 This is a my prototype for my dating website for project tech. It's called 'WatchTogether'
 It's built using the `express` framework for `nodejs`. Pages are rendered using `ejs`.
